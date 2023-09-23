@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "CS330M/external/shared/glm/glm",
+		"source" : "CS330M/external/shared/glm/glm"
+	}
+}
