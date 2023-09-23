@@ -5,6 +5,7 @@
 #include <shader.h>
 #include <string>
 #include <glm/gtc/matrix_transform.hpp>
+#include <stb_image.h>
 
 
 Application::Application(std::string WindowTitle, int width, int height)
@@ -45,8 +46,8 @@ void Application::Run() {
 
 bool Application::openWindow() {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     _window = glfwCreateWindow(1000, 800, "CS330 Matt Sandoval", nullptr, nullptr);
@@ -187,10 +188,10 @@ void Application::handleInput(float deltaTime) {
 void Application::setupScene() {
 
     // Create Plane Meshes
-    _meshes.emplace_back(Shapes::PlaneVertices, Shapes::PlaneElements);
+   // _meshes.emplace_back(Shapes::PlaneVertices, Shapes::PlaneElements);
 
     // Create Portfolio Meshes
-    _meshes.emplace_back(Shapes::PortfolioVertices, Shapes::PortfolioElements);
+    // _meshes.emplace_back(Shapes::PortfolioVertices, Shapes::PortfolioElements);
 
     // Create Pen Meshes
     //_meshes.emplace_back(Shapes::PenVertices, Shapes::PenElements);
@@ -198,7 +199,7 @@ void Application::setupScene() {
     pen->Transform = glm::translate(pen->Transform, glm::vec3(.0f, 1.0f, 4.0f));
     pen->Transform = glm::rotate(pen->Transform, glm::radians(285.0f), glm::vec3(.0f, 0.0f, 1.0f));
     pen->Transform = glm::scale(pen->Transform, glm::vec3(.85f, .85f, .85f));
-    _meshes.push_back(*pen);
+    //_meshes.push_back(*pen);
 
     // create Coffee Cup Meshes
     auto handle = (GenerateTorus());
@@ -206,14 +207,14 @@ void Application::setupScene() {
     handle2.Transform = glm::rotate(handle2.Transform, glm::radians(0.0f), glm::vec3(.0f, 0.0f, 1.0f));
     handle2.Transform = glm::translate(handle2.Transform, glm::vec3(8.9f, 1.20f, 0.0f));
     handle2.Transform = glm::scale(handle2.Transform, glm::vec3(.85f, .85f, .85f));
-    _meshes.push_back(handle2);
+    //_meshes.push_back(handle2);
 
     auto cup = (GenerateCone());
     auto cup2 = _preMeshes.emplace_back(cup.first, cup.second);
     cup2.Transform = glm::translate(cup2.Transform, glm::vec3(7.0, 0.0f, 0.0f));
     cup2.Transform = glm::rotate(cup2.Transform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     cup2.Transform = glm::scale(cup2.Transform, glm::vec3(.85f, .85f, .85f));
-    _meshes.push_back(cup2);
+    //_meshes.push_back(cup2);
 
     // create watch Meshes
     auto watch = (GenerateCylinder());
@@ -221,17 +222,41 @@ void Application::setupScene() {
     watch2.Transform = glm::translate(watch2.Transform, glm::vec3(3.0f, 1.0f, 4.0f));
     watch2.Transform = glm::rotate(watch2.Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     watch2.Transform = glm::scale(watch2.Transform, glm::vec3(.85f, .85f, .85f));
-    _meshes.push_back(watch2);
+    //_meshes.push_back(watch2);
 
     auto bracelet = (GenerateRectangle());
     auto bracelet2 = _preMeshes.emplace_back(bracelet.first, bracelet.second);
     bracelet2.Transform = glm::translate(bracelet2.Transform, glm::vec3(3.0f, 1.2f, 3.75f));
     bracelet2.Transform = glm::rotate(bracelet2.Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     bracelet2.Transform = glm::scale(bracelet2.Transform, glm::vec3(.85f, .85f, .85f));
-    _meshes.push_back(bracelet2);
+    //_meshes.push_back(bracelet2);
 
-    Path shaderPath = std::filesystem::current_path() / "shaders";
+    _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
+
+
+    Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
     _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
+
+    // Load a texture
+    Path texturePath = std::filesystem::current_path() / "assets" / "textures";
+    auto texture1Path = (texturePath / "wall.jpg").string();
+
+    int width, height, numChannels;
+    unsigned char *data = stbi_load(texture1Path.c_str(), &width, &height, &numChannels, STBI_rgb_alpha);
+
+    glGenTextures(1, &_texture1);
+    glBindTexture(GL_TEXTURE_2D, _texture1);
+    if (data){
+    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // last argument is the image data
+
+    glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    } else {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
 
 }
 
@@ -252,6 +277,8 @@ bool Application::draw() {
     _shader.Bind();
     _shader.SetMat4("projection", projection);
     _shader.SetMat4("view", view);
+
+    glBindTexture(GL_TEXTURE_2D, _texture1);
 
     for (auto &mesh: _meshes) {
         // mesh.Transform = glm::rotate(mesh.Transform, glm::radians(.1f), glm::vec3(0.0f, 1.0f, 0.0f));

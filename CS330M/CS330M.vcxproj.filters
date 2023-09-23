@@ -25,6 +25,9 @@
     <Filter Include="Source Files\include">
       <UniqueIdentifier>{0547dc2c-8a34-4453-822f-dd494644f161}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\external\stb">
+      <UniqueIdentifier>{d34403be-0087-427b-9994-722e3196b98d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
+    <ClCompile Include="external\shared\stb_image\stb.cpp">
+      <Filter>Source Files\external\stb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\application.h">
@@ -61,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="include\Camera.h">
       <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="external\shared\stb_image\stb\stb_image.h">
+      <Filter>Source Files\external\stb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

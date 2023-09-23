@@ -7,7 +7,6 @@
 #include <shader.h>
 #include <Camera.h>
 
-
 class Application
 {
 public:
@@ -53,5 +52,7 @@ private:
     glm::vec2 _cameraLookSpeed{};
 
     float _lastFrameTime{-1.f};
+
+    GLuint _texture1{};
 
 };

@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="external\shared\glad\src\glad.c" />
+    <ClCompile Include="external\shared\stb_image\stb.cpp" />
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -27,6 +28,7 @@
     <ClCompile Include="src\shader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\shared\stb_image\stb\stb_image.h" />
     <ClInclude Include="include\application.h" />
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\mesh.h" />
@@ -89,7 +91,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\matt\source\repos\CS330M\CS330M\external\vslibs\glew\glew-2.2.0\lib\Release\x64;$(ProjectsDir)external\shared\glm;$(ProjectsDir)external\shared\glad\include;$(ProjectsDir)external\vslibs\glfw64\include;$(ProjectsDir)include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)external\vslibs\glew\glew-2.2.0\lib\Release\x64;$(ProjectsDir)external\shared\glm;$(ProjectsDir)external\shared\glad\include;$(ProjectsDir)external\vslibs\glfw64\include;$(ProjectsDir)include;$(ProjectDir)external\shared\stb_image\stb;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,7 +137,7 @@
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy "$(ProjectDir)shaders\*.*" "$(TargetDir)shaders" /Y /I /E</Command>
+      <Command>xcopy "$(ProjectDir)assets\*.*" "$(TargetDir)assest" /Y /I /E</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
