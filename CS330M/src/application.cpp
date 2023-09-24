@@ -6,6 +6,9 @@
 #include <string>
 #include <glm/gtc/matrix_transform.hpp>
 #include <stb_image.h>
+#include <model.h>
+#include <model_objects\Light.h>
+#include <utility>
 
 
 Application::Application(std::string WindowTitle, int width, int height)
@@ -191,7 +194,7 @@ void Application::setupScene() {
    // _meshes.emplace_back(Shapes::PlaneVertices, Shapes::PlaneElements);
 
     // Create Portfolio Meshes
-    // _meshes.emplace_back(Shapes::PortfolioVertices, Shapes::PortfolioElements);
+    //_meshes.emplace_back(Shapes::PortfolioVertices, Shapes::PortfolioElements);
 
     // Create Pen Meshes
     //_meshes.emplace_back(Shapes::PenVertices, Shapes::PenElements);
@@ -201,13 +204,14 @@ void Application::setupScene() {
     pen->Transform = glm::scale(pen->Transform, glm::vec3(.85f, .85f, .85f));
     //_meshes.push_back(*pen);
 
+
     // create Coffee Cup Meshes
     auto handle = (GenerateTorus());
     auto handle2 = _preMeshes.emplace_back(handle.first, handle.second);
     handle2.Transform = glm::rotate(handle2.Transform, glm::radians(0.0f), glm::vec3(.0f, 0.0f, 1.0f));
     handle2.Transform = glm::translate(handle2.Transform, glm::vec3(8.9f, 1.20f, 0.0f));
     handle2.Transform = glm::scale(handle2.Transform, glm::vec3(.85f, .85f, .85f));
-    //_meshes.push_back(handle2);
+   // _meshes.push_back(handle2);
 
     auto cup = (GenerateCone());
     auto cup2 = _preMeshes.emplace_back(cup.first, cup.second);
@@ -229,34 +233,23 @@ void Application::setupScene() {
     bracelet2.Transform = glm::translate(bracelet2.Transform, glm::vec3(3.0f, 1.2f, 3.75f));
     bracelet2.Transform = glm::rotate(bracelet2.Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
     bracelet2.Transform = glm::scale(bracelet2.Transform, glm::vec3(.85f, .85f, .85f));
-    //_meshes.push_back(bracelet2);
-
-    _meshes.emplace_back(Shapes::cubeVertices, Shapes::cubeElements);
-
+    _meshes.push_back(bracelet2);
 
     Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
-    _shader = Shader(shaderPath / "basic_shader.vert", shaderPath / "basic_shader.frag");
+    _shader = Shader(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
 
-    // Load a texture
-    Path texturePath = std::filesystem::current_path() / "assets" / "textures";
-    auto texture1Path = (texturePath / "wall.jpg").string();
+    _meshes.push_back(Shapes::cubeVertices, Shapes::cubeElements, _shader);
 
-    int width, height, numChannels;
-    unsigned char *data = stbi_load(texture1Path.c_str(), &width, &height, &numChannels, STBI_rgb_alpha);
 
-    glGenTextures(1, &_texture1);
-    glBindTexture(GL_TEXTURE_2D, _texture1);
-    if (data){
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); // last argument is the image data
 
-    glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
-    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
 
-    } else {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
+    _meshes.emplace_back(std::make_unique<Light>());
+
+
+
+
+
+
 
 }
 
@@ -265,6 +258,10 @@ bool Application::update(float deltaTime) {
     handleInput(deltaTime);
     return false;
 }
+
+
+
+
 
 // Draw the scene
 bool Application::draw() {
@@ -277,15 +274,34 @@ bool Application::draw() {
     _shader.Bind();
     _shader.SetMat4("projection", projection);
     _shader.SetMat4("view", view);
+    _shader.SetInt("tex0", 0);
+    _shader.SetInt("tex1", 1);
 
-    glBindTexture(GL_TEXTURE_2D, _texture1);
+    for(auto i = 0; i < _texture.size(); i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        _texture[i].Bind();
+    }
+
+    SceneParameters sceneParams{
+            .ProjectionMatrix = projection,
+            .ViewMatrix = view
+    };
+    /*
+    for (auto& model1 : _objects)
+    {
+        model1->Draw(sceneParams);
+    }
+     */
 
     for (auto &mesh: _meshes) {
-        // mesh.Transform = glm::rotate(mesh.Transform, glm::radians(.1f), glm::vec3(0.0f, 1.0f, 0.0f));
-        // mesh.Transform = glm::rotate(mesh.Transform, glm::radians(.1f), glm::vec3(1.0f, 0.0f, 0.0f));
         _shader.SetMat4("model", mesh.Transform);
         mesh.Draw();
     }
+
+
+
+
+
 
     glfwSwapBuffers(_window);
 

@@ -6,6 +6,7 @@
 #include <mesh.h>
 #include <shader.h>
 #include <Camera.h>
+#include <Texture.h>
 
 class Application
 {
@@ -38,7 +39,10 @@ private:
 
     std::vector<Mesh> _preMeshes;
     std::vector<Mesh> _meshes;
-    std::vector<Mesh> _penMesh;
+
+    //std::vector<Mesh:Object()> _objects;
+
+    std::vector<Texture> _texture;
 
     Camera _camera;
 
@@ -53,6 +57,7 @@ private:
 
     float _lastFrameTime{-1.f};
 
-    GLuint _texture1{};
+    GLuint _watchBraceletTop{};
+    GLuint _watchBraceletSide{};
 
 };

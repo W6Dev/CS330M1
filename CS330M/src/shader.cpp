@@ -108,9 +108,19 @@ void Shader::SetMat4(const std::string& uniformName, const glm::mat4 &mat4) {
     auto uniformLoc = getUniformLocation(uniformName);
 
     if(uniformLoc != -1) {
-        Bind();
+
         glUniformMatrix4fv(uniformLoc, 1, GL_FALSE, glm::value_ptr(mat4));
     }
+}
+
+void Shader::SetInt(const std::string &uniformName, int value) {
+    auto uniformLoc = getUniformLocation(uniformName);
+
+    if(uniformLoc != -1) {
+
+        glUniform1i(uniformLoc, value);
+    }
+
 }
 
 

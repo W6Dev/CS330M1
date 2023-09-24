@@ -7,11 +7,14 @@
 #include <types.h>
 #include <string>
 #include <glad/glad.h>
+#include <shader.h>
+
 
 
 class Mesh {
 public:
     Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& indices);
+    //Mesh(std::vector<Vertex>& vertices, std::vector<uint32_t>& indices, std::vector<Shader>& shaders);
 
     void Draw();
 

@@ -12,11 +12,22 @@
 #include <vector>
 
 
+
 struct Vertex {
     glm::vec3 Position{0.f, 0.f, 0.f};
     glm::vec3 Color{1.f, 1.f, 1.f};
     glm::vec3 Normal{0.f, 0.f, 0.f};
     glm::vec2 Uv{0.f, 0.f};
+
+
+};
+
+struct SceneParameters{
+    glm::mat4 ProjectionMatrix{1.f};
+    glm::mat4 ViewMatrix{1.f};
+    uint32_t LightInScene {0};
+
+
 };
 
 constexpr double PI = std::numbers::pi;
@@ -28,35 +39,43 @@ struct Shapes {
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
                             .Color = {1.f, 0.f, 0.f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
                             .Color = {1.f, 0.f, 0.f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
                             .Color = {1.f, 0.f, 0.f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
                             .Color = {1.f, 0.f, 0.f},
+                            .Uv = {1.f, 1.f},
                     },
                     // right face
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
                             .Color = {0.f, 1.f, 0.f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
                             .Color = {0.f, 1.f, 0.f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
                             .Color = {0.f, 1.f, 0.f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
                             .Color = {0.f, 1.f, 0.f},
+                            .Uv = {1.f, 1.f},
                     },
 
 
@@ -64,70 +83,86 @@ struct Shapes {
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
                             .Color = {0.f, 0.f, 1.0f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
                             .Color = {0.f, 0.f, 1.0f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
                             .Color = {0.f, 0.f, 1.0f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
                             .Color = {0.f, 0.f, 1.0f},
+                            .Uv = {1.f, 1.f},
                     },
 
                     // left face
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
                             .Color = {0.f, 1.f, 1.0f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
                             .Color = {0.f, 1.f, 1.0f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
                             .Color = {0.f, 1.f, 1.0f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
                             .Color = {0.f, 1.f, 1.0f},
+                            .Uv = {1.f, 1.f},
                     },
                     // Top face
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
                             .Color = {1.f, 1.f, 0.0f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
                             .Color = {1.f, 1.f, 0.0f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
                             .Color = {1.f, 1.f, 0.0f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
                             .Color = {1.f, 1.f, 0.0f},
+                            .Uv = {1.f, 1.f},
                     },
                     // Bottom Face
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
                             .Color = {1.f, 0.f, 1.0f},
+                            .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
                             .Color = {1.f, 0.f, 1.0f},
+                            .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
                             .Color = {1.f, 0.f, 1.0f},
+                            .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
                             .Color = {1.f, 0.f, 1.0f},
+                            .Uv = {1.f, 1.f},
                     },
             };
 
@@ -291,18 +326,22 @@ struct Shapes {
                     {
                             .Position = {-4.8f, 1.0f, 6.0f},
                             .Color = {0.6f, 0.2f, 0.f},
+
                     },
                     {
                             .Position = {-4.8f, 0.8f, 6.0f},
                             .Color = {0.6f, 0.2f, 0.f},
+
                     },
                     {
                             .Position = {5.0f, 0.8f, 6.0f},
                             .Color = {0.6f, 0.2f, 0.f},
+
                     },
                     {
                             .Position = {5.0f, 1.0f, 6.0f},
                             .Color = {0.6f, 0.2f, 0.f},
+
                     },
                     // right face
                     {
@@ -362,19 +401,23 @@ struct Shapes {
                     {
                             .Position = {-4.8f, 1.0f, -6.0f},
                             .Color = {0.78f, 0.38f, 0.08f},
+
                     },
                     {
                             .Position = {-4.8f, 1.0f, 6.0f},
                             .Color = {0.78f, 0.38f, 0.08f},
+
                     },
                     {
                             .Position = {5.0f, 1.0f, 6.0f},
                             .Color = {0.80f, 0.50f, 0.20f},
 
+
                     },
                     {
                             .Position = {5.0f, 1.0f, -6.0f},
                             .Color = {0.80f, 0.50f, 0.20f},
+
                     },
                     // Bottom Face
                     {
@@ -1808,104 +1851,128 @@ GenerateRectangle(float width = 1.0f, float height = 4.50f, float depth = .15f) 
     // front face
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.45f, 0.40f, 0.40f}
+            .Color = {0.45f, 0.40f, 0.40f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f}
+            .Color = {0.40f, 0.45f, 0.40f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.45f}
+            .Color = {0.40f, 0.40f, 0.45f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.45f, 0.40f, 0.40f}
+            .Color = {0.45f, 0.40f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
     // right face
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f}
+            .Color = {0.40f, 0.45f, 0.40f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f}
+            .Color = {0.40f, 0.45f, 0.40f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f}
+            .Color = {0.40f, 0.40f, 0.45f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.45f, 0.40f}
+            .Color = {0.40f, 0.45f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
     // back face
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.45f, 0.40f}
+            .Color = {0.40f, 0.45f, 0.40f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f}
+            .Color = {0.45f, 0.40f, 0.40f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f}
+            .Color = {0.45f, 0.40f, 0.40f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f}
+            .Color = {0.45f, 0.40f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
     // left face
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f}
+            .Color = {0.40f, 0.40f, 0.45f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f}
+            .Color = {0.40f, 0.40f, 0.45f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.45f}
+            .Color = {0.40f, 0.40f, 0.45f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
     // top face
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
     // bottom face
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f}
+            .Color = {0.40f, 0.40f, 0.40f},
+            .Uv = {1.0f, 0.0f}
     });
 
     // Define the indices for the rectangle using push_back

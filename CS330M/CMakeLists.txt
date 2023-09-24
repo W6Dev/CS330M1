@@ -13,7 +13,7 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 file(GLOB_RECURSE GLAD_SOURCES external/shared/glad/*.c)
 
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${GLAD_SOURCES} include/types.h src/mesh.cpp include/mesh.h src/shader.cpp include/shader.h src/Camera.cpp include/Camera.h external/shared/stb_image/stb/stb_image.h external/shared/stb_image/stb.cpp)
+add_executable(${PROJECT_NAME} ${SOURCES} ${GLAD_SOURCES} include/types.h src/mesh.cpp include/mesh.h src/shader.cpp include/shader.h src/Camera.cpp include/Camera.h external/shared/stb_image/stb/stb_image.h external/shared/stb_image/stb.cpp src/Texture.cpp include/Texture.h src/model.cpp include/model.h src/Light.cpp include/Model_objects/Light.h include/Model_objects/model_objects.h src/Watch.cpp include/Model_objects/Watch.h)
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE
