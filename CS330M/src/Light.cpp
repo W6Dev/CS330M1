@@ -9,10 +9,6 @@
 #include <mesh.h>
 #include <shader.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <string>
-#include <application.h>
-#include <iostream>
-#include <types.h>
 
 
 Light::Light() {
@@ -26,29 +22,15 @@ void Light::Init() {
 void Light::Update(float deltaTime) {
 }
 
-void Light::Draw(SceneParameters& sceneParams) {
-    for(auto& model : _models){
-        auto* shader = model.GetShader();
-        auto* mesh = model.GetMesh();
-        shader->Bind();
-        shader->SetMat4("projection",sceneParams.ProjectionMatrix);
-        shader->SetMat4("view", sceneParams.ViewMatrix);
-        shader->SetMat4("model", Transform * mesh->Transform);
 
-        mesh->Draw();
-    }
-}
 
 void Light::createShaders() {
-    _basicUnlitShader = std::make_shared<Shader>(Path("basic_lit_color.vert"), Path("basic_lit_color.frag"));
+    Path shaderPath = std::filesystem::current_path() / "assets" / "shaders";
+    _basicUnlitShader = std::make_shared<Shader>(shaderPath / "basic_unlit_color.vert", shaderPath / "basic_unlit_color.frag");
 }
 
 void Light::createMeshes() {
-    //glm::vec3{1.f, 1.f, 1.f}
-    auto cube = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements);
-    cube->Transform = glm::scale(cube->Transform, glm::vec3{0.2f, 0.2f, 0.2f});
-
-    // how to fix the line below??
-    _models.emplace_back(cube, _basicUnlitShader, nullptr);
-
+    auto cube = std::make_shared<Mesh>(Shapes::PlaneVertices, Shapes::PlaneElements);
+    auto cubeMaterial = std::make_shared<Material>(_basicUnlitShader);
+    _models.emplace_back(cube, cubeMaterial);
 }

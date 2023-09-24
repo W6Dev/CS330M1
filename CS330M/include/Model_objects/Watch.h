@@ -16,14 +16,13 @@ public:
     Watch();
     void Init() override;
     void Update(float deltaTime) override;
-    void Draw(SceneParameters& sceneParams) override;
 
 private:
     void createShaders();
     void createCase();
     void createBand();
 private:
-    std::shared_ptr<Shader> _basicShader;
+    std::shared_ptr<Shader> _basicUnlitShader;
     std::shared_ptr<Shader> _textureShader;
 
     std::shared_ptr<Mesh> _case;

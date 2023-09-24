@@ -47,3 +47,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/glm/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/cmake_install.cmake")
+endif()
+

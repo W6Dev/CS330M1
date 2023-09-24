@@ -38,3 +38,10 @@ C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/glm/g
 C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/glm/glm/CMakeFiles/install.dir
 C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/glm/glm/CMakeFiles/install/local.dir
 C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/glm/glm/CMakeFiles/install/strip.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/stb.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/edit_cache.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/rebuild_cache.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/list_install_components.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/install.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/install/local.dir
+C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M/external/shared/stb_image/CMakeFiles/install/strip.dir

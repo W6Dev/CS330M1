@@ -19,15 +19,12 @@ struct Vertex {
     glm::vec3 Normal{0.f, 0.f, 0.f};
     glm::vec2 Uv{0.f, 0.f};
 
-
 };
 
 struct SceneParameters{
     glm::mat4 ProjectionMatrix{1.f};
     glm::mat4 ViewMatrix{1.f};
-    uint32_t LightInScene {0};
-
-
+    glm::vec3 CameraPosition {};
 };
 
 constexpr double PI = std::numbers::pi;

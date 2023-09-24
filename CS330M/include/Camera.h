@@ -22,6 +22,7 @@ public:
 
     glm::mat4 GetViewMatrix();
     glm::mat4 GetProjectionMatrix() const;
+    glm::vec3 GetPosition() const { return _position; }
 
     bool IsPerspective() const {return _isPerspective;}
     void SetIsPerspective(bool isPerspective){_isPerspective = isPerspective;}
@@ -53,6 +54,5 @@ private:
     int _height{0};
     float _nearPlane{0.1f};
     float _farPlane{100.f};
-
 
 };

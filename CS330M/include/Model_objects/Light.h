@@ -17,7 +17,7 @@ public:
 
     void Update(float deltaTime) override;
 
-    void Draw(SceneParameters& sceneParams) override;
+    //void Draw(SceneParameters& sceneParams) override;
 
 private:
     void createShaders();

@@ -4,20 +4,16 @@
 
 #pragma once
 #include <string>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <mesh.h>
-#include <shader.h>
-#include <Camera.h>
-#include <Texture.h>
+#include <material.h>
+
 
 class Model {
 public:
-    Model(std::shared_ptr<Mesh> mesh, std::shared_ptr<Shader> shader, std::shared_ptr<Texture> texture);
-    Shader* GetShader() { return _shader.get(); }
+    Model(std::shared_ptr<Mesh> mesh, std::shared_ptr<Material> material);
+    Material* GetMaterial() { return _material.get(); }
     Mesh* GetMesh() { return _mesh.get(); }
 private:
     std::shared_ptr<Mesh> _mesh;
-    std::shared_ptr<Shader> _shader;
-    std::shared_ptr<Texture> _texture;
+    std::shared_ptr<Material> _material;
 };

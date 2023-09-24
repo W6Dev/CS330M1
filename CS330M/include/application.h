@@ -7,6 +7,7 @@
 #include <shader.h>
 #include <Camera.h>
 #include <Texture.h>
+#include <Model_objects/model_objects.h>
 
 class Application
 {
@@ -17,7 +18,7 @@ public:
 private:
 	bool openWindow();
     bool draw();
-    bool update(float deltaTime);
+    void update(float deltaTime);
 
     void setupScene();
     void setupInputs();
@@ -40,7 +41,7 @@ private:
     std::vector<Mesh> _preMeshes;
     std::vector<Mesh> _meshes;
 
-    //std::vector<Mesh:Object()> _objects;
+    std::vector<std::unique_ptr<ModelObjects>> _objects {};;
 
     std::vector<Texture> _texture;
 
