@@ -20,7 +20,7 @@ public:
 
 private:
     void createShaders();
-    void createMeshes();
+    void createFace();
     void createBand();
     void createSide();
 private:

@@ -10,7 +10,7 @@
 
 Watch::Watch() {
     createShaders();
-    createMeshes();
+    createFace();
     createBand();
     createSide();
 }
@@ -28,22 +28,22 @@ void Watch::createSide() {
 
     auto watchMaterial = std::make_shared<Material>(_basicUnlitShader);
 
-    // Watch Face
+    // Watch Case Side
     auto [CylinderVertices, CylinderElements] = GenerateSide();
-    auto watchFace = std::make_shared<Mesh>(CylinderVertices, CylinderElements);
-    watchFace->Transform = glm::translate(watchFace->Transform, glm::vec3(3.0f, 1.0f, 4.0f));
-    watchFace->Transform = glm::rotate(watchFace->Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    watchFace->Transform = glm::scale(watchFace->Transform, glm::vec3(.85f, .85f, .85f));
+    auto watchCase = std::make_shared<Mesh>(CylinderVertices, CylinderElements);
+    watchCase->Transform = glm::translate(watchCase->Transform, glm::vec3(3.0f, 1.0f, 4.0f));
+    watchCase->Transform = glm::rotate(watchCase->Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    watchCase->Transform = glm::scale(watchCase->Transform, glm::vec3(.85f, .85f, .85f));
 
     watchMaterial->AddTexture(std::make_shared<Texture>(Path("Side_case.png")));
 
-    _models.emplace_back(watchFace, watchMaterial);
+    _models.emplace_back(watchCase, watchMaterial);
 
 }
 
 
-void Watch::createMeshes() {
-    // create watch Meshes
+void Watch::createFace() {
+    // create watch face
     auto watchMaterial = std::make_shared<Material>(_basicUnlitShader);
 
     // Watch Face
@@ -57,9 +57,7 @@ void Watch::createMeshes() {
             .S = Texture::SamplerTileMode::ClampToEdge,
             .T = Texture::SamplerTileMode::ClampToEdge,
     }));
-
     _models.emplace_back(watchFace, watchMaterial);
-
 
 }
 

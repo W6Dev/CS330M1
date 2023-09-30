@@ -12,7 +12,6 @@
 #include <vector>
 
 
-
 struct Vertex {
     glm::vec3 Position{0.f, 0.f, 0.f};
     glm::vec3 Color{1.f, 1.f, 1.f};
@@ -1599,156 +1598,14 @@ struct Shapes {
 };
 
 
-// Generate a sphere
-static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateSphere
-        (float radius = 1.f, uint32_t sectors = 50, uint32_t stacks = 50) {
-    std::vector<Vertex> vertices{};
-    std::vector<uint32_t> indices{};
-    uint32_t k1, k2;
-    double x, y, z, xy;                              // vertex position
-    double nx, ny, nz, lengthInv = 1.0f / radius;    // vertex normal
-    double s, t;                                     // vertex texCoord
-
-    double sectorStep = 2 * PI / sectors;
-    double stackStep = PI / stacks;
-    double sectorAngle, stackAngle;
-
-    for (uint32_t i = 0; i <= stacks; ++i) {
-        stackAngle = PI / 2 - i * stackStep;        // starting from pi/2 to -pi/2
-        xy = radius * cosf(stackAngle);             // r * cos(u)
-        z = radius * sinf(stackAngle);              // r * sin(u)
-
-        k1 = i * (sectors + 1);     // beginning of current stack
-        k2 = k1 + sectors + 1;
-        // add (sectorCount+1) vertices per stack
-        // the first and last vertices have same position and normal, but different tex coords
-        for (uint32_t j = 0; j <= sectors; ++j, ++k1, ++k2) {
-            sectorAngle = static_cast<float>(j) * sectorStep;           // starting from 0 to 2pi
-
-            // vertex position (x, y, z)
-            x = xy * cosf(sectorAngle);             // r * cos(u) * cos(v)
-            y = xy * sinf(sectorAngle);             // r * cos(u) * sin(v)
-
-            // normalized vertex normal (nx, ny, nz)
-            nx = x * lengthInv;
-            ny = y * lengthInv;
-            nz = z * lengthInv;
-
-            // vertex tex coord (s, t) range between [0, 1]
-            s = (float) j / static_cast<float>(sectors);
-            t = (float) i / static_cast<float>(stacks);
-
-            vertices.push_back(Vertex{
-                    .Position = {x, y, z},
-                    //.Uv = {s, t},
-                    //.Normal = {nx, ny, nz},
-            });
-        }
-    }
-
-    for (uint32_t i = 0; i < stacks; ++i) {
-        k1 = i * (sectors + 1);     // beginning of current stack
-        k2 = k1 + sectors + 1;      // beginning of next stack
-
-        for (uint32_t j = 0; j < sectors; ++j, ++k1, ++k2) {
-            // 2 triangles per sector excluding first and last stacks
-            // k1 => k2 => k1+1
-            if (i != 0) {
-                indices.push_back(k1);
-                indices.push_back(k1 + 1);
-                indices.push_back(k2);
-            }
-
-            // k1+1 => k2 => k2+1
-            if (i != (stacks - 1)) {
-                indices.push_back(k1 + 1);
-                indices.push_back(k2 + 1);
-                indices.push_back(k2);
-            }
-        }
-    }
-
-    return {vertices, indices};
-};
-
-// Generate a Cylinder
-static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCylinder(
-        float radius = 0.75f, uint32_t sectors = 50, uint32_t stacks = 50) {
-
-    std::vector<Vertex> vertices{};
-    std::vector<uint32_t> indices{};
-    unsigned int centerIndex = .5;
-
-    float sectorStep = 2 * PI / sectors;
-
-    std::vector<float> unitCircleVertices;
-    for (uint32_t i = 0; i <= sectors; ++i) {
-        double sectorAngle = i * sectorStep;
-        unitCircleVertices.push_back(cos(sectorAngle)); // x
-        unitCircleVertices.push_back(sin(sectorAngle)); // y
-        unitCircleVertices.push_back(0);                // z
-    }
-
-    // Side vertices
-    for (int i = 0; i < 2; ++i) {
-        float h = -0.5f + i; // z value, -0.5 to 0.5
-        for (uint32_t j = 0, k = 0; j <= sectors; ++j, k += 3) {
-            vertices.push_back(Vertex{
-                    .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
-                    .Color = {0.00f, 0.00f, 0.00f},
-                    .Uv = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius},
-
-
-            });
-        }
-    }
-
-    // Side indices
-    for (uint32_t i = 0, k1 = 0, k2 = sectors + 1; i < sectors; ++i, ++k1, ++k2) {
-        indices.insert(indices.end(), {k1, k1 + 1, k2, k2, k1 + 1, k2 + 1});
-    }
-
-    centerIndex = static_cast<int>(vertices.size());
-    // Base and top vertices with indices
-    for (int i = 0; i < 2; ++i) {
-        float h = -0.5f + i;
-        centerIndex = static_cast<int>(vertices.size());
-        vertices.push_back(Vertex{
-                .Position = {0, 0, h},
-                .Color = {0.89f, 0.44f, 0.10f},
-                .Uv = {.50, .50}
-        });
-
-        for (uint32_t j = 0, k = 0; j < sectors; ++j, k += 3) {
-            vertices.push_back(Vertex{
-                    .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
-                    .Color = {0.89f, 0.44f, 0.10f},
-                    .Uv = {unitCircleVertices[k]* .5f + .5f, unitCircleVertices[k + 1]* .5f + .5f},
-
-            });
-        }
-
-        // Indices for the base and top
-        for (uint32_t j = 0, k = centerIndex + 1; j < sectors; ++j, ++k) {
-            if (j < sectors - 1) {
-                indices.insert(indices.end(), {centerIndex, k, k + 1});
-            } else { // last triangle
-                indices.insert(indices.end(), {centerIndex, k, centerIndex + 1});
-            }
-        }
-    }
-
-    return {vertices, indices};
-}
-
 //=====================
-// Generate a Cylinder
+// Generate a Watch Side
 static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateSide(
         float radius = 0.75f, uint32_t sectors = 50, uint32_t stacks = 50) {
 
     std::vector<Vertex> vertices{};
     std::vector<uint32_t> indices{};
-    unsigned int centerIndex = .5;
+   double centerIndex = .5;
 
     float sectorStep = 2 * PI / sectors;
 
@@ -1786,7 +1643,7 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCircle(
 
     std::vector<Vertex> vertices{};
     std::vector<uint32_t> indices{};
-    unsigned int centerIndex = .5;
+    unsigned int centerIndex = 0;
 
     float sectorStep = 2 * PI / sectors;
 
@@ -1797,7 +1654,6 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCircle(
         unitCircleVertices.push_back(sin(sectorAngle)); // y
         unitCircleVertices.push_back(0);                // z
     }
-
 
     centerIndex = static_cast<int>(vertices.size());
     // Base and top vertices with indices
