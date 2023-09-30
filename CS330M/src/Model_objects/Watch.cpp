@@ -31,9 +31,9 @@ void Watch::createSide() {
     // Watch Case Side
     auto [CylinderVertices, CylinderElements] = GenerateSide();
     auto watchCase = std::make_shared<Mesh>(CylinderVertices, CylinderElements);
-    watchCase->Transform = glm::translate(watchCase->Transform, glm::vec3(3.0f, 1.0f, 4.0f));
+    watchCase->Transform = glm::translate(watchCase->Transform, glm::vec3(3.0f, 1.43f, 4.0f));
     watchCase->Transform = glm::rotate(watchCase->Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    watchCase->Transform = glm::scale(watchCase->Transform, glm::vec3(.85f, .85f, .85f));
+    watchCase->Transform = glm::scale(watchCase->Transform, glm::vec3(.85f, .85f, .35f));
 
     watchMaterial->AddTexture(std::make_shared<Texture>(Path("Side_case.png")));
 

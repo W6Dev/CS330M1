@@ -45,43 +45,43 @@ struct Shapes {
                     // front face
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
                     // right face
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
-                            .Color = {0.f, 1.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
-                            .Color = {0.f, 1.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
-                            .Color = {0.f, 1.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
-                            .Color = {0.f, 1.f, 0.f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
 
@@ -89,86 +89,86 @@ struct Shapes {
                     // back face
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
-                            .Color = {0.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
-                            .Color = {0.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
-                            .Color = {0.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
-                            .Color = {0.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
 
                     // left face
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
-                            .Color = {0.f, 1.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
-                            .Color = {0.f, 1.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
-                            .Color = {0.f, 1.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
-                            .Color = {0.f, 1.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
                     // Top face
                     {
                             .Position = {-0.5f, 0.5f, -0.5f},
-                            .Color = {1.f, 1.f, 0.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {-0.5f, 0.5f, 0.5f},
-                            .Color = {1.f, 1.f, 0.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, 0.5f},
-                            .Color = {1.f, 1.f, 0.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {0.5f, 0.5f, -0.5f},
-                            .Color = {1.f, 1.f, 0.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
                     // Bottom Face
                     {
                             .Position = {0.5f, -0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 1.f},
                     },
                     {
                             .Position = {0.5f, -0.5f, -0.5f},
-                            .Color = {1.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {0.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, -0.5f},
-                            .Color = {1.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 0.f},
                     },
                     {
                             .Position = {-0.5f, -0.5f, 0.5f},
-                            .Color = {1.f, 0.f, 1.0f},
+                            .Color = {1.f, 1.f, 1.f},
                             .Uv = {1.f, 1.f},
                     },
             };
@@ -1605,7 +1605,7 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateSide(
 
     std::vector<Vertex> vertices{};
     std::vector<uint32_t> indices{};
-   double centerIndex = .5;
+   double centerIndex = .05;
 
     float sectorStep = 2 * PI / sectors;
 
@@ -1619,7 +1619,7 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateSide(
 
     // Side vertices
     for (int i = 0; i < 2; ++i) {
-        float h = -0.5f + i; // z value, -0.5 to 0.5
+        float h = -0.0f + i; // z value, -0.5 to 0.5
         for (uint32_t j = 0, k = 0; j <= sectors; ++j, k += 3) {
             vertices.push_back(Vertex{
                     .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},

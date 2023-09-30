@@ -5,6 +5,9 @@
 
 # User-specific files
 cmake-build-debug/
+cmake-build-release/
+CS330/cmake-build-debug/
+CS330/cmake-build-release/
 dist/
 *.rsuser
 *.suo

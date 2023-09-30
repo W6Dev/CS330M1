@@ -1,12 +1,13 @@
 #include <application.h>
 #include <iostream>
-#include <Model_objects\Light.h>
-#include <Model_objects\portfolio.h>
-#include <Model_objects\plane.h>
-#include <Model_objects\pen.h>
-#include <Model_objects\Coffee.h>
+#include <Model_objects/Light.h>
+#include <Model_objects/portfolio.h>
+#include <Model_objects/plane.h>
+#include <Model_objects/pen.h>
+#include <Model_objects/Coffee.h>
 #include <Model_objects/Watch.h>
-#include <Model_objects\model_objects.h>
+#include <Model_objects/model_objects.h>
+#include "glm/gtc/matrix_transform.hpp"
 
 
 Application::Application(std::string WindowTitle, int width, int height)
@@ -209,13 +210,15 @@ void Application::handleInput(float deltaTime) {
 // Build the scene
 void Application::setupScene() {
 
-
+    auto coffeeCup = std::make_unique<Coffee>();
+    coffeeCup->Transform = glm::translate(coffeeCup->Transform, glm::vec3(7.0f, 0.0f, 0.0f));
+    coffeeCup->Transform = glm::rotate(coffeeCup->Transform, glm::radians(-20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    _objects.emplace_back(coffeeCup.release());
 
     _objects.emplace_back(std::make_unique<Light>());
     _objects.emplace_back(std::make_unique<Portfolio>());
     _objects.emplace_back(std::make_unique<Plane>());
     _objects.emplace_back(std::make_unique<Pen>());
-    _objects.emplace_back(std::make_unique<Coffee>());
     _objects.emplace_back(std::make_unique<Watch>());
 
 }
@@ -276,7 +279,6 @@ void Application::mousePositionCallback(double xPos, double yPos) {
 
     _lastMousePosition.x = static_cast<float>(xPos);
     _lastMousePosition.y = static_cast<float>(yPos);
-
     _camera.RotateBy(moveAmount.x * _cameraLookSpeed.x, moveAmount.y * _cameraLookSpeed.y);
 }
 

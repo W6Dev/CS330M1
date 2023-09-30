@@ -28,6 +28,7 @@ void Light::createShaders() {
 void Light::createMeshes() {
     auto cube = std::make_shared<Mesh>(Shapes::cubeVertices, Shapes::cubeElements);
     auto cubeMaterial = std::make_shared<Material>(_basicUnlitShader);
-    _models.emplace_back(cube, cubeMaterial);
+    cube->Transform = glm::translate(cube->Transform, glm::vec3(0.0f, 10.0f, -5.0f));
 
+    _models.emplace_back(cube, cubeMaterial);
 }
