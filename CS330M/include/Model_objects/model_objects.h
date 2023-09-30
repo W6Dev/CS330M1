@@ -6,6 +6,7 @@
 #include <model.h>
 #include <types.h>
 #include <memory>
+#include <iostream>
 
 class ModelObjects {
 public:
@@ -20,9 +21,11 @@ public:
                     mesh->Draw();
                 }
             };
+
     virtual void ProcessLighting(SceneParameters& sceneParams){};
 
 public:
     glm::mat4 Transform {1.0f};
     std::vector<Model> _models;
+
 };

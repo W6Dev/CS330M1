@@ -46,7 +46,7 @@ void Mesh::init(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements) 
         auto p2Index = elements[i + 1];
         auto p3Index = elements[i + 2];
 
-        //Shapes::UpdateNormals(vertices[p1Index], vertices[p2Index], vertices[p3Index]);
+        Shapes::UpdateNormals(vertices[p1Index], vertices[p2Index], vertices[p3Index]);
     }
 
     // Generate a vertex array, a vertex buffer, and an element (index) buffer
@@ -80,3 +80,4 @@ void Mesh::init(std::vector<Vertex>& vertices, std::vector<uint32_t>& elements) 
     // cache the number of elements in the element array, needed when drawing
     _elementCount = elements.size();
 }
+

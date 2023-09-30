@@ -1,20 +1,17 @@
 #include <application.h>
 #include <iostream>
-#include <types.h>
-#include <vector>
-#include <shader.h>
-#include <string>
-#include <glm/gtc/matrix_transform.hpp>
-#include <stb_image.h>
-#include <model.h>
-#include <model_objects\Light.h>
-#include <model_objects\Watch.h>
-#include <utility>
+#include <Model_objects\Light.h>
+#include <Model_objects\portfolio.h>
+#include <Model_objects\plane.h>
+#include <Model_objects\pen.h>
+#include <Model_objects\Coffee.h>
+#include <Model_objects/Watch.h>
+#include <Model_objects\model_objects.h>
 
 
 Application::Application(std::string WindowTitle, int width, int height)
         : _applicationName(WindowTitle), _width(width), _height(height),
-          _camera(width, height, {0, 8.f, 20.f}, true),
+          _camera(width, height, {0, 15.f, 20.f}, true),
           _cameraLookSpeed{0.1f, 0.1f} {}
 
 void Application::Run() {
@@ -27,11 +24,18 @@ void Application::Run() {
 
     _running = true;
     // Set up the scene
+
+    // Set Camera Position
+    _camera.IncrementZoom(10.f);
+    _camera.RotateBy(20.f, -40.f);
+    _camera.MoveCamera(Camera::MoveDirection::Forward, 10.f);
+    _camera.MoveCamera(Camera::MoveDirection::Left, 5.f);
+
     setupScene();
 
     // run application
     while (_running) {
-        float currentTime = glfwGetTime();
+        float currentTime = static_cast<float>(glfwGetTime());
         if (_lastFrameTime == -1.f) {
             _lastFrameTime = currentTime;
         }
@@ -53,8 +57,9 @@ bool Application::openWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
 
-    _window = glfwCreateWindow(1000, 800, "CS330 Matt Sandoval", nullptr, nullptr);
+    _window = glfwCreateWindow(1000, 750, "CS330 Matt Sandoval", nullptr, nullptr);
 
     if (!_window) {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -83,6 +88,19 @@ bool Application::openWindow() {
         return false;
     }
     glEnable(GL_DEPTH_TEST);
+    // Enable depth testing
+    glEnable(GL_DEPTH_TEST);
+
+    /*
+    // cull back faces
+    glFrontFace(GL_CCW);
+    glCullFace(GL_BACK);
+    glEnable(GL_CULL_FACE);
+    */
+    // enable MSAA
+    glEnable(GL_MULTISAMPLE);
+    return true;
+
     return true;
 }
 
@@ -90,7 +108,7 @@ void Application::setupInputs() {
     // Exit the application when the escape key is pressed
     // Pressing the P key will toggle between perspective and orthographic projection
     glfwSetKeyCallback(_window, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
-        auto app = reinterpret_cast<Application *>(glfwGetWindowUserPointer(window));
+        auto* app = reinterpret_cast<Application *>(glfwGetWindowUserPointer(window));
         switch (key) {
             case GLFW_KEY_ESCAPE: {
                 if (action == GLFW_PRESS) {
@@ -191,62 +209,14 @@ void Application::handleInput(float deltaTime) {
 // Build the scene
 void Application::setupScene() {
 
-    //_camera.RotateBy(-45.f, 0.f);
-    // Create Plane Meshes
-   // _objects.emplace_back(Shapes::PlaneVertices, Shapes::PlaneElements);
-
-    /*
-       // Create Portfolio Meshes
-       //_meshes.emplace_back(Shapes::PortfolioVertices, Shapes::PortfolioElements);
-
-       // Create Pen Meshes
-       //_meshes.emplace_back(Shapes::PenVertices, Shapes::PenElements);
-       auto pen = std::make_shared<Mesh>(Shapes::PenVertices, Shapes::PenElements);
-       pen->Transform = glm::translate(pen->Transform, glm::vec3(.0f, 1.0f, 4.0f));
-       pen->Transform = glm::rotate(pen->Transform, glm::radians(285.0f), glm::vec3(.0f, 0.0f, 1.0f));
-       pen->Transform = glm::scale(pen->Transform, glm::vec3(.85f, .85f, .85f));
-       //_meshes.push_back(*pen);
-
-
-       // create Coffee Cup Meshes
-       auto handle = (GenerateTorus());
-       auto handle2 = _preMeshes.emplace_back(handle.first, handle.second);
-       handle2.Transform = glm::rotate(handle2.Transform, glm::radians(0.0f), glm::vec3(.0f, 0.0f, 1.0f));
-       handle2.Transform = glm::translate(handle2.Transform, glm::vec3(8.9f, 1.20f, 0.0f));
-       handle2.Transform = glm::scale(handle2.Transform, glm::vec3(.85f, .85f, .85f));
-      // _meshes.push_back(handle2);
-
-       auto cup = (GenerateCone());
-       auto cup2 = _preMeshes.emplace_back(cup.first, cup.second);
-       cup2.Transform = glm::translate(cup2.Transform, glm::vec3(7.0, 0.0f, 0.0f));
-       cup2.Transform = glm::rotate(cup2.Transform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-       cup2.Transform = glm::scale(cup2.Transform, glm::vec3(.85f, .85f, .85f));
-       //_meshes.push_back(cup2);
-
-       // create watch Meshes
-       auto watch = (GenerateCylinder());
-       auto watch2 = _preMeshes.emplace_back(watch.first, watch.second);
-       watch2.Transform = glm::translate(watch2.Transform, glm::vec3(3.0f, 1.0f, 4.0f));
-       watch2.Transform = glm::rotate(watch2.Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-       watch2.Transform = glm::scale(watch2.Transform, glm::vec3(.85f, .85f, .85f));
-       //_meshes.push_back(watch2);
-
-       auto bracelet = (GenerateRectangle());
-       auto bracelet2 = _preMeshes.emplace_back(bracelet.first, bracelet.second);
-       bracelet2.Transform = glm::translate(bracelet2.Transform, glm::vec3(3.0f, 1.2f, 3.75f));
-       bracelet2.Transform = glm::rotate(bracelet2.Transform, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-       bracelet2.Transform = glm::scale(bracelet2.Transform, glm::vec3(.85f, .85f, .85f));
-       _meshes.push_back(bracelet2);
-
-
- */
-
-    Path shaderPath = std::filesystem::current_path() / "assets" / "shaders" ;
-    _shader = Shader(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
-    auto test = std::make_shared<Shader>(shaderPath / "basic_lit.vert", shaderPath / "basic_lit.frag");
 
 
     _objects.emplace_back(std::make_unique<Light>());
+    _objects.emplace_back(std::make_unique<Portfolio>());
+    _objects.emplace_back(std::make_unique<Plane>());
+    _objects.emplace_back(std::make_unique<Pen>());
+    _objects.emplace_back(std::make_unique<Coffee>());
+    _objects.emplace_back(std::make_unique<Watch>());
 
 }
 
@@ -254,32 +224,21 @@ void Application::update(float deltaTime) {
     glfwPollEvents();
     handleInput(deltaTime);
 
-    for (auto& model : _objects)
-    {
+    for (auto &model: _objects) {
         model->Update(deltaTime);
     }
 
 }
 
 
-
-
-
 // Draw the scene
 bool Application::draw() {
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 view = _camera.GetViewMatrix();
     glm::mat4 projection = _camera.GetProjectionMatrix();
-    /*
-    _shader.Bind();
-    _shader.SetMat4("projection", projection);
-    _shader.SetMat4("view", view);
-    _shader.SetInt("tex0", 0);
-    _shader.SetInt("tex1", 1);
 
-      */
 
     SceneParameters sceneParams{
             .ProjectionMatrix = projection,
@@ -287,14 +246,13 @@ bool Application::draw() {
             .CameraPosition = _camera.GetPosition(),
     };
 
-    for (auto& model : _objects)
-    {
+
+    for (auto &model: _objects) {
         model->ProcessLighting(sceneParams);
     };
 
-    for (auto& model : _objects)
-    {
-        model->Draw(sceneParams);
+    for (auto &obj: _objects) {
+        obj->Draw(sceneParams);
     }
 
 

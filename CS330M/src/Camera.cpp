@@ -67,7 +67,7 @@ void Camera::MoveCamera(Camera::MoveDirection direction, float moveAmount) {
 void Camera::RotateBy(float yaw, float pitch) {
     _yaw += yaw;
     _pitch += pitch;
-    _pitch = std::clamp(_pitch, -120.f, 89.f);
+    _pitch = std::clamp(_pitch, -89.f, 89.f);
 
     recalculateVectors();
 }

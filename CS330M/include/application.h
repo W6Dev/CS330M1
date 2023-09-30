@@ -3,10 +3,8 @@
 #include <string>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <mesh.h>
-#include <shader.h>
 #include <Camera.h>
-#include <Texture.h>
+#include <vector>
 #include <Model_objects/model_objects.h>
 
 class Application
@@ -30,35 +28,20 @@ private:
 
 private:
 	std::string _applicationName{};
-	int _width{};
-	int _height{};
+    int _width;
+    int _height;
+
 	GLFWwindow* _window{nullptr};
-    GLuint _vertexBufferObject{};
-    GLuint _shaderProgram{};
-    GLuint _vertexArrayObject{};
-    GLuint _elementBufferObject{};
 
-    std::vector<Mesh> _preMeshes;
-    std::vector<Mesh> _meshes;
-
-    std::vector<std::unique_ptr<ModelObjects>> _objects {};;
-
-    std::vector<Texture> _texture;
+    std::vector<std::unique_ptr<ModelObjects>> _objects {};
 
     Camera _camera;
 
-    Shader _shader ;
-
 	bool _running{false};
-
-
     bool _firstMouse{false};
     glm::vec2 _lastMousePosition{-1,-1};
     glm::vec2 _cameraLookSpeed{};
-
     float _lastFrameTime{-1.f};
 
-    GLuint _watchBraceletTop{};
-    GLuint _watchBraceletSide{};
 
 };

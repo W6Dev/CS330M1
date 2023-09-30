@@ -2,31 +2,31 @@
 // Created by Dsk3 on 9/15/2023.
 //
 
-#include <material.h>
 #include <iostream>
-
-
-Material::Material(std::shared_ptr<Shader> shader) : _shader(std::move(shader)) {
-    };
+#include <material.h>
 
 
 
-void Material::Bind(const SceneParameters& sceneParams, const glm::mat4& model) {
+Material::Material(std::shared_ptr<Shader> shader) : _shader { std::move(shader) } {}
 
-    _shader->Bind();
-    _shader->SetMat4("projection", sceneParams.ProjectionMatrix);
-    _shader->SetMat4("view", sceneParams.ViewMatrix);
-    _shader->SetMat4("model", model);
-
-
-
-
-    //glUseProgram(_materialProgram);
+void Material::AddTexture(const std::shared_ptr<Texture> &texture) {
+    _textures.emplace_back(texture);
 }
 
+void Material::Bind(const SceneParameters& sceneParams, const glm::mat4& model) {
+    _shader->Bind();
 
+    _shader->SetMat4("projection", sceneParams.ProjectionMatrix);
+    _shader->SetMat4("view", sceneParams.ViewMatrix);
 
+    // Set Camera Position
+    _shader->SetVec3("eyePos", sceneParams.CameraPosition);
+    _shader->SetMat4("model", model);
 
+    for (auto i = 0; i < _textures.size(); i++) {
+        glActiveTexture(GL_TEXTURE0 + i);
+        _textures[i]->Bind();
+    }
 
-
+}
 

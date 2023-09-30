@@ -30,6 +30,17 @@ struct SceneParameters{
 constexpr double PI = std::numbers::pi;
 
 struct Shapes {
+    static inline void UpdateNormals(Vertex& p1, Vertex& p2, Vertex& p3) {
+        glm::vec3 U = p2.Position - p1.Position;
+        glm::vec3 V = p3.Position - p1.Position;
+
+        auto normal = glm::cross(U, V);
+
+        p1.Normal = normal;
+        p2.Normal = normal;
+        p3.Normal = normal;
+    }
+
     static inline std::vector<Vertex> cubeVertices
             {
                     // front face
@@ -178,24 +189,24 @@ struct Shapes {
 
     static inline std::vector<Vertex> PlaneVertices
     {
-      
-        // Top face
-        {
-                .Position = {-20.5f, 0.0f, 10.0f},
-                .Color = {0.85f, 0.85f, 0.75f},
-        },
-        {
-                .Position = {20.5f, 0.0f, 10.0f},
-                .Color = {0.85f, 0.85f, 0.75f},
-        },
-        {
-                .Position = {-20.5f, 0.0f, -10.0f},
-                .Color = {0.85f, 0.85f, 0.75f},
-        },
-        {
-                .Position = {20.5f, 0.0f, -10.0f},
-                .Color = {0.85f, 0.85f, 0.75f},
-        },
+            // Top face
+            {
+                    {.Position = {-20.5f, 10.0f, 0.0f},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {-1.f, 1.f}},
+
+                    {.Position = {20.5f, 10.0f, 0.0f},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {1.f, 1.f}},
+
+                    {.Position = {-20.5f, -10.0f, 0.0f},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {-1.f, 1.f}},
+
+                    {.Position = {20.5f, -10.0f, 0.0f},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {1.f, -1.f}},
+            }
    
     };
 
@@ -1684,7 +1695,10 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCylinder(
         for (uint32_t j = 0, k = 0; j <= sectors; ++j, k += 3) {
             vertices.push_back(Vertex{
                     .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
-                    .Color = {0.40f, 0.40f, 0.40f}
+                    .Color = {0.00f, 0.00f, 0.00f},
+                    .Uv = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius},
+
+
             });
         }
     }
@@ -1701,13 +1715,16 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCylinder(
         centerIndex = static_cast<int>(vertices.size());
         vertices.push_back(Vertex{
                 .Position = {0, 0, h},
-                .Color = {0.89f, 0.44f, 0.10f}
+                .Color = {0.89f, 0.44f, 0.10f},
+                .Uv = {.50, .50}
         });
 
         for (uint32_t j = 0, k = 0; j < sectors; ++j, k += 3) {
             vertices.push_back(Vertex{
                     .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
-                    .Color = {0.89f, 0.44f, 0.10f}
+                    .Color = {0.89f, 0.44f, 0.10f},
+                    .Uv = {unitCircleVertices[k]* .5f + .5f, unitCircleVertices[k + 1]* .5f + .5f},
+
             });
         }
 
@@ -1723,6 +1740,99 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCylinder(
 
     return {vertices, indices};
 }
+
+//=====================
+// Generate a Cylinder
+static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateSide(
+        float radius = 0.75f, uint32_t sectors = 50, uint32_t stacks = 50) {
+
+    std::vector<Vertex> vertices{};
+    std::vector<uint32_t> indices{};
+    unsigned int centerIndex = .5;
+
+    float sectorStep = 2 * PI / sectors;
+
+    std::vector<float> unitCircleVertices;
+    for (uint32_t i = 0; i <= sectors; ++i) {
+        double sectorAngle = i * sectorStep;
+        unitCircleVertices.push_back(cos(sectorAngle)); // x
+        unitCircleVertices.push_back(sin(sectorAngle)); // y
+        unitCircleVertices.push_back(0);                // z
+    }
+
+    // Side vertices
+    for (int i = 0; i < 2; ++i) {
+        float h = -0.5f + i; // z value, -0.5 to 0.5
+        for (uint32_t j = 0, k = 0; j <= sectors; ++j, k += 3) {
+            vertices.push_back(Vertex{
+                    .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
+                    .Color = {0.80f, 0.80f, 0.80f},
+                    .Uv = {j / static_cast<float>(sectors), i }
+            });
+        }
+    }
+
+    // Side indices
+    for (uint32_t i = 0, k1 = 0, k2 = sectors + 1; i < sectors; ++i, ++k1, ++k2) {
+        indices.insert(indices.end(), {k1, k1 + 1, k2, k2, k1 + 1, k2 + 1});
+    }
+
+    return {vertices, indices};
+}
+
+// Generate a Cylinder
+static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCircle(
+        float radius = 0.75f, uint32_t sectors = 50, uint32_t stacks = 50) {
+
+    std::vector<Vertex> vertices{};
+    std::vector<uint32_t> indices{};
+    unsigned int centerIndex = .5;
+
+    float sectorStep = 2 * PI / sectors;
+
+    std::vector<float> unitCircleVertices;
+    for (uint32_t i = 0; i <= sectors; ++i) {
+        double sectorAngle = i * sectorStep;
+        unitCircleVertices.push_back(cos(sectorAngle)); // x
+        unitCircleVertices.push_back(sin(sectorAngle)); // y
+        unitCircleVertices.push_back(0);                // z
+    }
+
+
+    centerIndex = static_cast<int>(vertices.size());
+    // Base and top vertices with indices
+    for (int i = 0; i < 2; ++i) {
+        float h = -0.5f + i;
+        centerIndex = static_cast<int>(vertices.size());
+        vertices.push_back(Vertex{
+                .Position = {0, 0, h},
+                .Color = {1.0f, 0.44f, 0.10f},
+                .Uv = {.50, .50}
+        });
+
+        for (uint32_t j = 0, k = 0; j < sectors; ++j, k += 3) {
+            vertices.push_back(Vertex{
+                    .Position = {unitCircleVertices[k] * radius, unitCircleVertices[k + 1] * radius, h},
+                    .Color = {0.89f, 0.44f, 0.10f},
+                    .Uv = {unitCircleVertices[k]* .5f + .5f, unitCircleVertices[k + 1]* .5f + .5f},
+
+            });
+        }
+
+        // Indices for the base and top
+        for (uint32_t j = 0, k = centerIndex + 1; j < sectors; ++j, ++k) {
+            if (j < sectors - 1) {
+                indices.insert(indices.end(), {centerIndex, k, k + 1});
+            } else { // last triangle
+                indices.insert(indices.end(), {centerIndex, k, centerIndex + 1});
+            }
+        }
+    }
+
+    return {vertices, indices};
+}
+
+
 
 // Generate a Cone
 static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCone(
@@ -1845,130 +1955,130 @@ GenerateRectangle(float width = 1.0f, float height = 4.50f, float depth = .15f) 
     std::vector<uint32_t> indices{};
 
     // Define the four vertices of the rectangle using push_back
-    // front face
+    // bottom
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.45f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.45f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.45f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
     // right face
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.45f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.45f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
     // back face
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.45f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f},
-            .Uv = {0.0f, 1.0f}
+            .Color = {0.80f, 0.80f, 0.80f},
+            .Uv = {0.0f, 12.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f},
-            .Uv = {1.0f, 1.0f}
+            .Color = {0.80f, 0.80f, 0.80f},
+            .Uv = {1.0f, 12.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.45f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
     // left face
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.45f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.45f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
-    // top face
+    // front face
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
-    // bottom face
+    // top face
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 0.0f}
     });
     vertices.push_back(Vertex{
             .Position = {halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {00.80f, 0.80f, 0.80f},
             .Uv = {0.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, -depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 1.0f}
     });
     vertices.push_back(Vertex{
             .Position = {-halfWidth, -halfHeight, depth},
-            .Color = {0.40f, 0.40f, 0.40f},
+            .Color = {0.80f, 0.80f, 0.80f},
             .Uv = {1.0f, 0.0f}
     });
 
