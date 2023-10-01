@@ -28,9 +28,9 @@ void Pen::createShaders() {
 void Pen::createMeshes() {
     auto pen = std::make_shared<Mesh>(Shapes::PenVertices, Shapes::PenElements);
     auto penMaterial = std::make_shared<Material>(_basicUnlitShader);
-    pen->Transform = glm::translate(pen->Transform, glm::vec3(.0f, 1.10f, 4.0f));
+    pen->Transform = glm::translate(pen->Transform, glm::vec3(.0f, 1.10f, 4.30f));
     pen->Transform = glm::rotate(pen->Transform, glm::radians(280.0f), glm::vec3(.0f, 0.0f, 1.0f));
-    pen->Transform = glm::scale(pen->Transform, glm::vec3(.85f, .85f, .85f));
+    pen->Transform = glm::scale(pen->Transform, glm::vec3(1.0f, 1.0f, 1.0f));
     _models.emplace_back(pen, penMaterial);
 
 }

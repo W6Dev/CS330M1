@@ -36,7 +36,7 @@ void Coffee::createMeshes() {
     auto cup = std::make_shared<Mesh>(ConeVertices, ConeElements);
     cup->Transform = glm::translate(cup->Transform, glm::vec3(0.0, 0.0f, 0.0f));
     cup->Transform = glm::rotate(cup->Transform, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    cup->Transform = glm::scale(cup->Transform, glm::vec3(.85f, .85f, .85f));
+    cup->Transform = glm::scale(cup->Transform, glm::vec3(1.0f, 1.0f, 1.0f));
     _models.emplace_back(cup, cupMaterial);
 
     // handle
@@ -45,7 +45,7 @@ void Coffee::createMeshes() {
     auto handle = std::make_shared<Mesh>(TorusVertices, TorusElements);
     handle->Transform = glm::translate(handle->Transform, glm::vec3(1.9f, 1.20f, 0.0f));
     handle->Transform = glm::rotate(handle->Transform, glm::radians(0.f), glm::vec3(1.0f, 0.0f, 0.0f));
-    handle->Transform = glm::scale(handle->Transform, glm::vec3(.85f, .85f, .85f));
+    handle->Transform = glm::scale(handle->Transform, glm::vec3(1.0f, 1.0f, 1.0f));
     _models.emplace_back(handle, cupMaterial);
 }
 
