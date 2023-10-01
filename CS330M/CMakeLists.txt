@@ -1,5 +1,5 @@
 set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/dist/${CMAKE_SYSTEM_NAME})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/Run-Me/${CMAKE_SYSTEM_NAME})
 
 
 
@@ -17,18 +17,18 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${GLAD_SOURCES} include/types.h src/me
 
 target_include_directories(${PROJECT_NAME}
         PRIVATE
-            include/
-            external/shared/glad/include/
-            glfw
-            glm
-            stb
+        include/
+        external/shared/glad/include/
+        glfw
+        glm
+        stb
         )
 TARGET_LINK_LIBRARIES(${PROJECT_NAME}
         PRIVATE
-            glfw
-            OpenGL::GL
-            glm
-            stb
+        glfw
+        OpenGL::GL
+        glm
+        stb
         )
 
 add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD

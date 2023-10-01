@@ -15,6 +15,7 @@ public:
 
     void Update(float deltaTime) override;
 
+    void ProcessLighting(SceneParameters &sceneParams) override;
 
 
 private:
@@ -22,6 +23,7 @@ private:
     void createMeshes();
 private:
     std::shared_ptr<Shader> _basicUnlitShader;
+    float _totalTime {0.0f};
 
 };
 

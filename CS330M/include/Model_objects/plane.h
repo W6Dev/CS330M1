@@ -17,7 +17,6 @@ public:
     void Update(float deltaTime) override;
 
 
-
 private:
     void createShaders();
     void createMeshes();

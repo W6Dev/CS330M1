@@ -24,19 +24,53 @@
     <ClCompile Include="src\application.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\material.cpp" />
     <ClCompile Include="src\mesh.cpp" />
+    <ClCompile Include="src\model.cpp" />
+    <ClCompile Include="src\Model_objects\Coffee.cpp" />
+    <ClCompile Include="src\Model_objects\Light.cpp" />
+    <ClCompile Include="src\Model_objects\pen.cpp" />
+    <ClCompile Include="src\Model_objects\plane.cpp" />
+    <ClCompile Include="src\Model_objects\portfolio.cpp" />
+    <ClCompile Include="src\Model_objects\Watch.cpp" />
     <ClCompile Include="src\shader.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="external\shared\stb_image\stb\stb_image.h" />
     <ClInclude Include="include\application.h" />
     <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\material.h" />
     <ClInclude Include="include\mesh.h" />
+    <ClInclude Include="include\model.h" />
+    <ClInclude Include="include\Model_objects\Coffee.h" />
+    <ClInclude Include="include\Model_objects\Light.h" />
+    <ClInclude Include="include\Model_objects\model_objects.h" />
+    <ClInclude Include="include\Model_objects\pen.h" />
+    <ClInclude Include="include\Model_objects\plane.h" />
+    <ClInclude Include="include\Model_objects\portfolio.h" />
+    <ClInclude Include="include\Model_objects\Watch.h" />
     <ClInclude Include="include\shader.h" />
+    <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
+    <None Include="assets\shaders\basic_lit.frag" />
+    <None Include="assets\shaders\basic_lit.vert" />
+    <None Include="assets\shaders\basic_lit_2.frag" />
+    <None Include="assets\shaders\basic_lit_2.vert" />
+    <None Include="assets\shaders\basic_unlit_color.frag" />
+    <None Include="assets\shaders\basic_unlit_color.vert" />
+    <None Include="assets\shaders\texture.frag" />
+    <None Include="assets\shaders\texture.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\Link.png" />
+    <Image Include="assets\textures\Side_case.png" />
+    <Image Include="assets\textures\Steel.jpg" />
+    <Image Include="assets\textures\wall.jpg" />
+    <Image Include="assets\textures\Watch_Face.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

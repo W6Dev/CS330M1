@@ -92,12 +92,12 @@ bool Application::openWindow() {
     // Enable depth testing
     glEnable(GL_DEPTH_TEST);
 
-    /*
+
     // cull back faces
     glFrontFace(GL_CCW);
     glCullFace(GL_BACK);
     glEnable(GL_CULL_FACE);
-    */
+
     // enable MSAA
     glEnable(GL_MULTISAMPLE);
     return true;
@@ -174,9 +174,7 @@ void Application::setupInputs() {
 
         }
     });
-
 }
-
 // Process Keyboard Input
 void Application::handleInput(float deltaTime) {
     auto moveAmount = _movementSpeed * deltaTime;
@@ -204,7 +202,6 @@ void Application::handleInput(float deltaTime) {
         _camera.MoveCamera(Camera::MoveDirection::Down, moveAmount);
         std::cout << "E Pressed" << std::endl;
     }
-
 }
 
 // Build the scene
@@ -215,12 +212,12 @@ void Application::setupScene() {
     coffeeCup->Transform = glm::rotate(coffeeCup->Transform, glm::radians(-20.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     _objects.emplace_back(coffeeCup.release());
 
-    _objects.emplace_back(std::make_unique<Light>());
-    _objects.emplace_back(std::make_unique<Portfolio>());
-    _objects.emplace_back(std::make_unique<Plane>());
-    _objects.emplace_back(std::make_unique<Pen>());
-    _objects.emplace_back(std::make_unique<Watch>());
-
+   _objects.emplace_back(std::make_unique<Pen>());
+   // auto &moveLight = _objects.emplace_back(std::make_unique<Light>());
+    //moveLight->Transform = glm::translate(moveLight->Transform, glm::vec3(0.0f, 7.0f, -5.0f));
+   _objects.emplace_back(std::make_unique<Portfolio>());
+   _objects.emplace_back(std::make_unique<Plane>());
+   _objects.emplace_back(std::make_unique<Watch>());
 }
 
 void Application::update(float deltaTime) {
@@ -233,22 +230,20 @@ void Application::update(float deltaTime) {
 
 }
 
-
 // Draw the scene
 bool Application::draw() {
-    glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
+    //glClearColor(0.f, 0.f, 0.f, 1.0f);
+    glClearColor(0.8f, 0.79f, 0.71f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 view = _camera.GetViewMatrix();
     glm::mat4 projection = _camera.GetProjectionMatrix();
-
 
     SceneParameters sceneParams{
             .ProjectionMatrix = projection,
             .ViewMatrix = view,
             .CameraPosition = _camera.GetPosition(),
     };
-
 
     for (auto &model: _objects) {
         model->ProcessLighting(sceneParams);
@@ -257,7 +252,6 @@ bool Application::draw() {
     for (auto &obj: _objects) {
         obj->Draw(sceneParams);
     }
-
 
     glfwSwapBuffers(_window);
 

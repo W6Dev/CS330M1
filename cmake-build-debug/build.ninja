@@ -237,16 +237,16 @@ build CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj: CXX_CO
 
 
 #############################################
-# Link the executable ..\dist\Windows\CS330M.exe
+# Link the executable ..\Run-Me\Windows\CS330M.exe
 
-build ../dist/Windows/CS330M.exe: CXX_EXECUTABLE_LINKER__CS330M_Debug CS330M/CMakeFiles/CS330M.dir/src/Camera.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Coffee.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Light.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Watch.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/pen.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/plane.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/portfolio.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Texture.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/application.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/main.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/material.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/mesh.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/model.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/shader.cpp.obj CS330M/CMakeFiles/CS330M.dir/external/shared/glad/src/glad.c.obj CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj | CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a || CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a
+build ../Run-Me/Windows/CS330M.exe: CXX_EXECUTABLE_LINKER__CS330M_Debug CS330M/CMakeFiles/CS330M.dir/src/Camera.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Coffee.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Light.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Watch.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/pen.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/plane.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/portfolio.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Texture.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/application.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/main.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/material.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/mesh.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/model.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/shader.cpp.obj CS330M/CMakeFiles/CS330M.dir/external/shared/glad/src/glad.c.obj CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj | CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a || CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a
   FLAGS = -g
   LINK_FLAGS = -static-libgcc -static-libstdc++ -static
   LINK_LIBRARIES = CS330M/external/cmakelibs/glfw/src/libglfw3.a  -lopengl32  CS330M/external/shared/stb_image/libstb.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CS330M\CMakeFiles\CS330M.dir
   POST_BUILD = cd .
-  PRE_LINK = cmd.exe /C "cd /D C:\Users\matt\source\repos\CS330M\cmake-build-debug\CS330M && "C:\Program Files\JetBrains\CLion 2022.2.1\bin\cmake\win\bin\cmake.exe" -E copy_directory C:/Users/matt/source/repos/CS330M/CS330M/assets C:/Users/matt/source/repos/CS330M/dist/Windows/assets && cd C:\Users\matt\source\repos\CS330M\cmake-build-debug"
-  TARGET_FILE = ..\dist\Windows\CS330M.exe
+  PRE_LINK = cmd.exe /C "cd /D C:\Users\matt\source\repos\CS330M\cmake-build-debug\CS330M && "C:\Program Files\JetBrains\CLion 2022.2.1\bin\cmake\win\bin\cmake.exe" -E copy_directory C:/Users/matt/source/repos/CS330M/CS330M/assets C:/Users/matt/source/repos/CS330M/Run-Me/Windows/assets && cd C:\Users\matt\source\repos\CS330M\cmake-build-debug"
+  TARGET_FILE = ..\Run-Me\Windows\CS330M.exe
   TARGET_IMPLIB = CS330M\libCS330M.dll.a
   TARGET_PDB = CS330M.exe.dbg
 
@@ -920,9 +920,9 @@ build CS330M/external/shared/stb_image/install/strip: phony CS330M/external/shar
 # =============================================================================
 # Target aliases.
 
-build CS330M: phony ../dist/Windows/CS330M.exe
+build CS330M: phony ../Run-Me/Windows/CS330M.exe
 
-build CS330M.exe: phony ../dist/Windows/CS330M.exe
+build CS330M.exe: phony ../Run-Me/Windows/CS330M.exe
 
 build glfw: phony CS330M/external/cmakelibs/glfw/src/libglfw3.a
 
@@ -951,7 +951,7 @@ build all: phony CS330M/all
 #############################################
 # Folder: C:/Users/matt/source/repos/CS330M/cmake-build-debug/CS330M
 
-build CS330M/all: phony ../dist/Windows/CS330M.exe CS330M/external/cmakelibs/glfw/all CS330M/external/shared/glm/all CS330M/external/shared/stb_image/all
+build CS330M/all: phony ../Run-Me/Windows/CS330M.exe CS330M/external/cmakelibs/glfw/all CS330M/external/shared/glm/all CS330M/external/shared/stb_image/all
 
 # =============================================================================
 

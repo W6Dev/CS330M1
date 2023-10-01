@@ -1,12 +1,11 @@
 //
 // Created by Dsk3 on 9/23/2023.
 //
-
 #pragma once
 #include <filesystem>
 #include <glad/glad.h>
-
 using Path = std::filesystem::path;
+
 
 class Texture {
 public:
@@ -14,9 +13,7 @@ public:
         Repeat,
         MirroredRepeat,
         ClampToEdge,
-        ClampToBoarder
     };
-
     enum class SamplerFilterMode {
         Nearest,
         Linear,
@@ -39,10 +36,8 @@ public:
     };
 
     static inline Path TexturePath = std::filesystem::current_path() / "assets" / "textures";
-
     explicit Texture(const std::filesystem::path& path, const SamplerSettings& samplerSettings = SamplerSettings::Default());
     void Bind() const;
-
     const SamplerSettings& GetSamplerSettings() { return _samplerSettings; }
     void SetSamplerSettings(const SamplerSettings& newSettings) { _samplerSettings = newSettings; }
 

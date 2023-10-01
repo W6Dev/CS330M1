@@ -7,19 +7,20 @@
 #include <iostream>
 
 Texture::Texture(const std::filesystem::path &path, const SamplerSettings& samplerSettings) :  _samplerSettings { samplerSettings } {
-    // Load texture from disk, flipping vertically
+    // Load the image data
+    // Flip the image vertically on load
     stbi_set_flip_vertically_on_load(true);
     auto texturePath = (TexturePath / path).string();
 
     int width, height, numChannels;
     unsigned char* data = stbi_load(texturePath.c_str(), &width, &height, &numChannels, STBI_rgb_alpha);
 
-    // Generate a handle to which we'll store our texture
+    // Generate a texture handle
     glGenTextures(1, &_textureHandle);
     glBindTexture(GL_TEXTURE_2D, _textureHandle);
 
     if (data) {
-        // Upload the texture data into the texture
+        // Load the texture into the GPU
         glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, width, height);
         glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
@@ -27,12 +28,12 @@ Texture::Texture(const std::filesystem::path &path, const SamplerSettings& sampl
         std::cerr << "Failed to load texture at path: " << texturePath << std::endl;
     }
 
-    // free the image data stored by STBI
+    // Free the image data
     stbi_image_free(data);
 }
 
 void Texture::Bind() const {
-    // Bind the texture and any sampler settings for this texture.
+    // Bind the texture
     glBindTexture(GL_TEXTURE_2D, _textureHandle);
     bindSamplerSettings();
 }
@@ -57,9 +58,7 @@ int Texture::samplerTileModeToGLenum(Texture::SamplerTileMode mode) const {
         case SamplerTileMode::ClampToEdge:
             return GL_CLAMP_TO_EDGE;
             break;
-        case SamplerTileMode::ClampToBoarder:
-            return GL_CLAMP_TO_BORDER;
-            break;
+
     }
 }
 

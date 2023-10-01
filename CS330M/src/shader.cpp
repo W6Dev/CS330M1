@@ -61,7 +61,7 @@ void Shader::SetVec3(const std::string &uniformName, const glm::vec3 &vec3) cons
 }
 
 void Shader::SetMat4(const std::string& uniformName, const glm::mat4 &mat4) const {
-    // Upload Mat4 to named uniform of same type.
+    // Upload matrix to named uniform of same type.
     auto uniformLoc = getUniformLocation(uniformName);
 
     if (uniformLoc != -1) {

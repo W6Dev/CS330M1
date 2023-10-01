@@ -22,7 +22,8 @@ void Coffee::Update(float deltaTime) {
 
 
 void Coffee::createShaders() {
-    _basicUnlitShader = std::make_shared<Shader>(Path("basic_lit.vert"), Path("basic_lit.frag"));
+    //_basicUnlitShader = std::make_shared<Shader>(Path("basic_lit.vert"), Path("basic_lit.frag"));
+    _basicUnlitShader = std::make_shared<Shader>(Path("mod6.vert"), Path("mod6.frag"));
 }
 
 void Coffee::createMeshes() {
@@ -47,3 +48,4 @@ void Coffee::createMeshes() {
     handle->Transform = glm::scale(handle->Transform, glm::vec3(.85f, .85f, .85f));
     _models.emplace_back(handle, cupMaterial);
 }
+

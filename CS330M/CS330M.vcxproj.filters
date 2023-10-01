@@ -28,6 +28,21 @@
     <Filter Include="Source Files\external\stb">
       <UniqueIdentifier>{d34403be-0087-427b-9994-722e3196b98d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src\Model_objects">
+      <UniqueIdentifier>{c953fd41-164b-4f17-9d86-f1988513f90c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\include\Model_Objects">
+      <UniqueIdentifier>{3e78e0d6-6d33-4b23-bfd5-3116c390a293}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\assets">
+      <UniqueIdentifier>{bcf60067-86f7-451f-ab75-a576998e4539}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\assets\shaders">
+      <UniqueIdentifier>{887a4041-634c-4c20-b187-05c178a231ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\assets\textures">
+      <UniqueIdentifier>{8f2a3e1c-dd0e-4e10-bec4-899293b55c05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -51,6 +66,33 @@
     <ClCompile Include="external\shared\stb_image\stb.cpp">
       <Filter>Source Files\external\stb</Filter>
     </ClCompile>
+    <ClCompile Include="src\Model_objects\Watch.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model_objects\plane.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model_objects\portfolio.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model_objects\pen.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model_objects\Light.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Model_objects\Coffee.cpp">
+      <Filter>Source Files\src\Model_objects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\material.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\model.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\application.h">
@@ -71,8 +113,79 @@
     <ClInclude Include="external\shared\stb_image\stb\stb_image.h">
       <Filter>Source Files\external\stb</Filter>
     </ClInclude>
+    <ClInclude Include="include\Model_objects\Coffee.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\Light.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\model_objects.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\pen.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\plane.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\portfolio.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Model_objects\Watch.h">
+      <Filter>Source Files\include\Model_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\material.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\model.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.gitignore" />
+    <None Include="assets\shaders\basic_lit.frag">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\basic_lit.vert">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\basic_lit_2.frag">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\basic_lit_2.vert">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\basic_unlit_color.frag">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\basic_unlit_color.vert">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\texture.frag">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\texture.vert">
+      <Filter>Source Files\assets\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\Link.png">
+      <Filter>Source Files\assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\Side_case.png">
+      <Filter>Source Files\assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\Steel.jpg">
+      <Filter>Source Files\assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\wall.jpg">
+      <Filter>Source Files\assets\textures</Filter>
+    </Image>
+    <Image Include="assets\textures\Watch_Face.png">
+      <Filter>Source Files\assets\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

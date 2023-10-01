@@ -20,12 +20,19 @@ struct Vertex {
 
 };
 
+
+
 struct SceneParameters{
     glm::mat4 ProjectionMatrix{1.f};
     glm::mat4 ViewMatrix{1.f};
     glm::vec3 CameraPosition {};
+
+
+
+    std::vector<glm::vec3> Lights{};
 };
 
+constexpr uint8_t MAX_LIGHTS = 10;
 constexpr double PI = std::numbers::pi;
 
 struct Shapes {
@@ -182,7 +189,6 @@ struct Shapes {
                     12, 13, 15, 13, 14, 15, //left face
                     16, 17, 19, 17, 18, 19, //top face
                     20, 21, 23, 21, 22, 23 //bottom face
-
             }
     };
 
@@ -191,33 +197,21 @@ struct Shapes {
             // Top face
             {
                     {.Position = {-20.5f, 10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f},
-                            .Uv = {-1.f, 1.f}},
-
+                            .Color = {1.0f, 1.0f, 1.0f}},
                     {.Position = {20.5f, 10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f},
-                            .Uv = {1.f, 1.f}},
-
+                            .Color = {1.0f, 1.0f, 1.0f}},
                     {.Position = {-20.5f, -10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f},
-                            .Uv = {-1.f, 1.f}},
-
+                            .Color = {1.0f, 1.0f, 1.0f}},
                     {.Position = {20.5f, -10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f},
-                            .Uv = {1.f, -1.f}},
+                            .Color = {1.0f, 1.0f, 1.0f}},
             }
-   
     };
-
 
     static inline std::vector<uint32_t> PlaneElements{
             {
                     0, 1, 2 , 1, 3, 2 //top face
               }
     };
-
-
-
 
     static inline std::vector<Vertex> PortfolioVertices
             {
@@ -810,7 +804,6 @@ struct Shapes {
             }
     };
 
-
     static inline std::vector<Vertex> PenVertices{
             //===================================================
             // PEN
@@ -906,11 +899,7 @@ struct Shapes {
             },
             // Bottom Face
             {
-                    .Position = {0.2f, -0.2f, 0.0f},
-                    .Color = {0.18f, 0.18f, 0.18f},
-            },
-            {
-                    .Position = {0.2f, -0.2f, -3.5f},
+                    .Position = {-0.2f, -0.2f, 0.0f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
             {
@@ -918,9 +907,16 @@ struct Shapes {
                     .Color = {0.18f, 0.18f, 0.18f},
             },
             {
-                    .Position = {-0.2f, -0.2f, 0.0f},
+                    .Position = {0.2f, -0.2f, -3.5f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
+
+            {
+                    .Position = {0.2f, -0.2f, 0.0f},
+                    .Color = {0.18f, 0.18f, 0.18f},
+            },
+
+
 
             // Pen Clicker ================================
             // front face
@@ -1013,11 +1009,7 @@ struct Shapes {
             },
             // Bottom Face
             {
-                    .Position = {0.1f, -0.1f, 0.0f},
-                    .Color = {0.60f, 0.60f, 0.60f},
-            },
-            {
-                    .Position = {0.1f, -0.1f, -4.0f},
+                    .Position = {-0.1f, -0.1f, 0.0f},
                     .Color = {0.60f, 0.60f, 0.60f},
             },
             {
@@ -1025,9 +1017,16 @@ struct Shapes {
                     .Color = {0.60f, 0.60f, 0.60f},
             },
             {
-                    .Position = {-0.1f, -0.1f, 0.0f},
+                    .Position = {0.1f, -0.1f, -4.0f},
                     .Color = {0.60f, 0.60f, 0.60f},
             },
+
+            {
+                    .Position = {0.1f, -0.1f, 0.0f},
+                    .Color = {0.60f, 0.60f, 0.60f},
+            },
+
+
 
             // Pen Ring ======================================
             // front face
@@ -1120,11 +1119,7 @@ struct Shapes {
             },
             // Bottom Face
             {
-                    .Position = {0.2f, -0.2f, 0.20f},
-                    .Color = {0.50f, 0.50f, 0.50f},
-            },
-            {
-                    .Position = {0.2f, -0.2f, 0.0f},
+                    .Position = {-0.2f, -0.2f, 0.20f},
                     .Color = {0.50f, 0.50f, 0.50f},
             },
             {
@@ -1132,9 +1127,16 @@ struct Shapes {
                     .Color = {0.50f, 0.50f, 0.50f},
             },
             {
-                    .Position = {-0.2f, -0.2f, 0.20f},
+                    .Position = {0.2f, -0.2f, 0.0f},
                     .Color = {0.50f, 0.50f, 0.50f},
             },
+
+            {
+                    .Position = {0.2f, -0.2f, 0.20f},
+                    .Color = {0.50f, 0.50f, 0.50f},
+            },
+
+
 
             // Pen clip======================================
             // front face
@@ -1227,11 +1229,7 @@ struct Shapes {
             },
             // Bottom Face
             {
-                    .Position = {0.08f, -0.4f, -2.0f},
-                    .Color = {0.50f, 0.50f, 0.50f},
-            },
-            {
-                    .Position = {0.08f, -0.4f, -3.5f},
+                    .Position = {-0.08f, -0.4f, -2.0f},
                     .Color = {0.50f, 0.50f, 0.50f},
             },
             {
@@ -1239,9 +1237,16 @@ struct Shapes {
                     .Color = {0.50f, 0.50f, 0.50f},
             },
             {
-                    .Position = {-0.08f, -0.4f, -2.0f},
+                    .Position = {0.08f, -0.4f, -3.5f},
                     .Color = {0.50f, 0.50f, 0.50f},
             },
+
+            {
+                    .Position = {0.08f, -0.4f, -2.0f},
+                    .Color = {0.50f, 0.50f, 0.50f},
+            },
+
+
             // Pen clicker ring ================================
             // front face
             {
@@ -1332,11 +1337,7 @@ struct Shapes {
             },
             // Bottom Face
             {
-                    .Position = {0.2f, -0.2f, -3.5f},
-                    .Color = {0.30f, 0.30f, 0.30f},
-            },
-            {
-                    .Position = {0.1f, -0.1f, -3.7f},
+                    .Position = {-0.2f, -0.2f, -3.5f},
                     .Color = {0.30f, 0.30f, 0.30f},
             },
             {
@@ -1344,9 +1345,16 @@ struct Shapes {
                     .Color = {0.30f, 0.30f, 0.30f},
             },
             {
-                    .Position = {-0.2f, -0.2f, -3.5f},
+                    .Position = {0.1f, -0.1f, -3.7f},
                     .Color = {0.30f, 0.30f, 0.30f},
             },
+
+            {
+                    .Position = {0.2f, -0.2f, -3.5f},
+                    .Color = {0.30f, 0.30f, 0.30f},
+            },
+
+
 
             // Pen pyramid ================================
             // front face
@@ -1368,11 +1376,7 @@ struct Shapes {
             },
             // right face
             {
-                    .Position = {0.2f, 0.2f, 0.2f},
-                    .Color = {0.13f, 0.13f, 0.13f},
-            },
-            {
-                    .Position = {0.2f, -0.2f, 0.2f},
+                    .Position = {0.1f, 0.1f, 1.3f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
             {
@@ -1380,9 +1384,16 @@ struct Shapes {
                     .Color = {0.13f, 0.13f, 0.13f},
             },
             {
-                    .Position = {0.1f, 0.1f, 1.3f},
+                    .Position = {0.2f, -0.2f, 0.2f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
+
+            {
+                    .Position = {0.2f, 0.2f, 0.2f},
+                    .Color = {0.13f, 0.13f, 0.13f},
+            },
+
+
 
             // back face
             {
@@ -1404,11 +1415,7 @@ struct Shapes {
 
             // left face
             {
-                    .Position = {-0.1f, 0.1f, 1.3f},
-                    .Color = {0.13f, 0.13f, 0.13f},
-            },
-            {
-                    .Position = {-0.1f, -0.1f, 1.3f},
+                    .Position = {-0.2f, 0.2f, 0.2f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
             {
@@ -1416,16 +1423,17 @@ struct Shapes {
                     .Color = {0.13f, 0.13f, 0.13f},
             },
             {
-                    .Position = {-0.2f, 0.2f, 0.2f},
+                    .Position = {-0.1f, -0.1f, 1.3f},
                     .Color = {0.13f, 0.13f, 0.13f},
             },
-            // Top face
             {
                     .Position = {-0.1f, 0.1f, 1.3f},
-                    .Color = {0.23f, 0.23f, 0.23f},
+                    .Color = {0.13f, 0.13f, 0.13f},
             },
+
+            // Top face
             {
-                    .Position = {-0.2f, 0.2f, 0.2f},
+                    .Position = {0.1f, 0.1f, 1.3f},
                     .Color = {0.23f, 0.23f, 0.23f},
             },
             {
@@ -1433,9 +1441,16 @@ struct Shapes {
                     .Color = {0.23f, 0.23f, 0.23f},
             },
             {
-                    .Position = {0.1f, 0.1f, 1.3f},
+                    .Position = {-0.2f, 0.2f, 0.2f},
                     .Color = {0.23f, 0.23f, 0.23f},
             },
+
+            {
+                    .Position = {-0.1f, 0.1f, 1.3f},
+                    .Color = {0.23f, 0.23f, 0.23f},
+            },
+
+
             // Bottom Face
             {
                     .Position = {0.2f, -0.2f, 0.2f},
@@ -1520,7 +1535,7 @@ struct Shapes {
 
             // Bottom Face
             {
-                    .Position = {0.1f, -0.1f, 1.3f},
+                    .Position = {0.0f, 0.0f, 1.6f},
                     .Color = {1.f, 0.f, 1.0f},
             },
             {
@@ -1528,9 +1543,11 @@ struct Shapes {
                     .Color = {1.f, 0.f, 1.0f},
             },
             {
-                    .Position = {0.0f, 0.0f, 1.6f},
+                    .Position = {0.1f, -0.1f, 1.3f},
                     .Color = {1.f, 0.f, 1.0f},
             },
+
+
 
 
     };
@@ -1657,8 +1674,8 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCircle(
 
     centerIndex = static_cast<int>(vertices.size());
     // Base and top vertices with indices
-    for (int i = 0; i < 2; ++i) {
-        float h = -0.5f + i;
+   // for (int i = 1; i < 1; ++i) {
+        float h = 0.0f ;
         centerIndex = static_cast<int>(vertices.size());
         vertices.push_back(Vertex{
                 .Position = {0, 0, h},
@@ -1683,7 +1700,7 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCircle(
                 indices.insert(indices.end(), {centerIndex, k, centerIndex + 1});
             }
         }
-    }
+   // }
 
     return {vertices, indices};
 }
@@ -1716,7 +1733,7 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCone(
         for (uint32_t j = 0, k = 0; j <= sectors; ++j, k += 3) {
             vertices.push_back(Vertex{
                     .Position = {unitCircleVertices[k] * radii[i], unitCircleVertices[k + 1] * radii[i], h},
-                    .Color = {0.20f, 0.20f, 0.25f}
+                    .Color = {0.33f, 0.39f, 0.62f}
             });
         }
     }
@@ -1759,9 +1776,9 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateCone(
 static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateTorus(
         float majorRadius = 0.6f, float minorRadius = 0.15f, uint32_t sectors = 50, uint32_t rings = 50) {
 
+
     std::vector<Vertex> vertices{};
     std::vector<uint32_t> indices{};
-
     float ringStep = 2 * PI / rings;
     float sectorStep = 2 * PI / sectors;
 
@@ -1775,14 +1792,15 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateTorus(
             double sectorAngle = j * sectorStep;
             double cosSector = cos(sectorAngle);
             double sinSector = sin(sectorAngle);
-
             double x = (majorRadius + minorRadius * cosSector) * cosRing;
             double y = (majorRadius + minorRadius * cosSector) * sinRing;
             double z = minorRadius * sinSector;
 
             vertices.push_back(Vertex{
                     .Position = {x, y, z},
-                    .Color = {0.20f, 0.20f, 0.20f}
+                    .Color = {0.33f, 0.39f, 0.62f},
+                    .Uv = {static_cast<float>(i) / rings, static_cast<float>(j) / sectors}
+
             });
         }
     }
@@ -1796,7 +1814,6 @@ static std::pair<std::vector<Vertex>, std::vector<uint32_t>> GenerateTorus(
             indices.insert(indices.end(), {k1, k1 + 1, k2, k2, k1 + 1, k2 + 1});
         }
     }
-
     return {vertices, indices};
 }
 
@@ -1948,6 +1965,5 @@ GenerateRectangle(float width = 1.0f, float height = 4.50f, float depth = .15f) 
             16, 17, 19, 17, 18, 19, //top face
             20, 21, 23, 21, 22, 23, //bottom face
     };
-
     return {vertices, indices};
 }
