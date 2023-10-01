@@ -22,15 +22,14 @@ void Application::Run() {
     };
 
     setupInputs();
-
     _running = true;
     // Set up the scene
-
     // Set Camera Position
-    _camera.IncrementZoom(10.f);
+    _camera.IncrementZoom(30.f);
     _camera.RotateBy(20.f, -40.f);
-    _camera.MoveCamera(Camera::MoveDirection::Forward, 10.f);
+    _camera.MoveCamera(Camera::MoveDirection::Forward, 2.f);
     _camera.MoveCamera(Camera::MoveDirection::Left, 5.f);
+    _camera.MoveCamera(Camera::MoveDirection::Up, 3.f);
 
     setupScene();
 
@@ -227,13 +226,12 @@ void Application::update(float deltaTime) {
     for (auto &model: _objects) {
         model->Update(deltaTime);
     }
-
 }
 
 // Draw the scene
 bool Application::draw() {
-    //glClearColor(0.f, 0.f, 0.f, 1.0f);
-    glClearColor(0.8f, 0.79f, 0.71f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    //glClearColor(0.8f, 0.79f, 0.71f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glm::mat4 view = _camera.GetViewMatrix();
@@ -254,7 +252,6 @@ bool Application::draw() {
     }
 
     glfwSwapBuffers(_window);
-
     return false;
 }
 

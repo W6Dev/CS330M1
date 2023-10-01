@@ -197,13 +197,17 @@ struct Shapes {
             // Top face
             {
                     {.Position = {-20.5f, 10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f}},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {0.f, 10.f}},
                     {.Position = {20.5f, 10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f}},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {10.f, 10.f}},
                     {.Position = {-20.5f, -10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f}},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {0.f, 0.f}},
                     {.Position = {20.5f, -10.0f, 0.0f},
-                            .Color = {1.0f, 1.0f, 1.0f}},
+                            .Color = {1.0f, 1.0f, 1.0f},
+                            .Uv = {10.f, 0.f}}
             }
     };
 

@@ -31,17 +31,17 @@ vec3 roomLight()
 
     // Diffuse lighting
     vec3 norm = normalize(vertexNormal);
-    vec3 lightDir = normalize(vec3(0.0f, 3.0f, 0.0f));
+    vec3 lightDir = normalize(vec3(.1f, 1.0f, 0.0f));
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * vec3(0.96f, 0.95f, .95f) * objectColor;
 
     // Specular lighting
-    float specularStrength = 1.0;
-    vec3 viewDir = normalize(vec3(0.0f, 60.0f, 0.0f) - vertexPosition);
+    float specularStrength = .8;
+    vec3 viewDir = normalize(vec3(-5.f, 40.0f, -0.0f) - vertexPosition);
 
     vec3 reflectDir = reflect(-lightDir, norm);
 
-    float shininess = 200.0;
+    float shininess = 120.0;
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
     vec3 specular = specularStrength * spec * vec3(1.0f, 1.0f, 1.0f);
 
@@ -60,7 +60,7 @@ void main()
     vec3 objectColor = vertexColor.xyz * sampledTexture;  // Modulate with vertexColor
 
     // Ambient lighting
-    float LightBrightness = 1.0;
+    float LightBrightness = .99;
     vec3 ambient = LightBrightness * vec3(1.0f, 1.0f, 1.0f) * objectColor;
 
     // Diffuse lighting
@@ -70,13 +70,13 @@ void main()
     vec3 diffuse = diff * vec3(0.96f, 0.95f, .95f) * objectColor;
 
     // Specular lighting
-    float specularStrength = 0.5;
+    float specularStrength = 0.85;
     vec3 viewDir = normalize(eyePos - vertexPosition);
     vec3 reflectDir = reflect(-lightDir, norm);
 
-    float shininess = 200.0;
+    float shininess = 120.0;
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-    vec3 specular = specularStrength * spec * vec3(.4f, .4f, .4f);
+    vec3 specular = specularStrength * spec * vec3(.6f, .6, .6f);
 
     vec3 finalColor = ambient + diffuse + specular;
 

@@ -20,6 +20,7 @@ public:
 private:
     void createShaders();
     void createMeshes();
+    void createBackPlane();
 private:
     std::shared_ptr<Shader> _basicUnlitShader;
 
