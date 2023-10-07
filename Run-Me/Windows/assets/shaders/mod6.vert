@@ -19,5 +19,4 @@ void main()
     vertexPosition = vec3(model * vec4(position, 1.0f));
     vertexColor = vec4(color, 1.0f);
     vertexNormal = mat3(transpose(inverse(model))) * normal;
-    texCoord = uv;  // Set the texture coordinate
 }

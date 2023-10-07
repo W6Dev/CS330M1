@@ -217,6 +217,31 @@ struct Shapes {
               }
     };
 
+    static inline std::vector<Vertex> WindowVertices{
+                    // Top face
+                    {
+                            {.Position = {-20.5f, 10.0f, 0.0f},
+                                    .Color = {1.0f, 1.0f, 1.0f},
+                                    .Uv = {0.f, 1.f}},
+                            {.Position = {20.5f, 10.0f, 0.0f},
+                                    .Color = {1.0f, 1.0f, 1.0f},
+                                    .Uv = {1.f, 1.f}},
+                            {.Position = {-20.5f, -10.0f, 0.0f},
+                                    .Color = {1.0f, 1.0f, 1.0f},
+                                    .Uv = {0.f, 0.f}},
+                            {.Position = {20.5f, -10.0f, 0.0f},
+                                    .Color = {1.0f, 1.0f, 1.0f},
+                                    .Uv = {1.f, 0.f}}
+                    }
+    };
+
+    static inline std::vector<uint32_t> WindowElements{
+            {
+                    0, 1, 2 , 1, 3, 2 //top face
+            }
+    };
+
+
     static inline std::vector<Vertex> PortfolioVertices
             {
                     // Back cover ======================================

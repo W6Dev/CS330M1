@@ -162,12 +162,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\matt\source\repos\CS330M\CS330M\external\vslibs\glew\glew-2.2.0\lib\Release\x64;C:\Users\matt\source\repos\CS330M\CS330M\external\vslibs\glfw64\lib-vc2022;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\vslibs\glew\glew-2.2.0\lib\Release\x64;$(ProjectDir)external\vslibs\glfw64\lib-vc2022;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\matt\source\repos\CS330M\CS330M\external\vslibs\glew\glew-2.2.0\lib\Release\x64;C:\Users\matt\source\repos\CS330M\CS330M\external\vslibs\glfw64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\vslibs\glew\glew-2.2.0\lib\Release\x64;$(ProjectDir)external\vslibs\glfw64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>

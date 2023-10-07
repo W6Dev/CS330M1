@@ -17,10 +17,11 @@ void Watch::Init() {
 }
 
 void Watch::Update(float deltaTime) {
+
 }
 
 void Watch::createShaders() {
-    _basicUnlitShader = std::make_shared<Shader>(Path("mod6.vert"), Path("mod6.frag"));
+    _basicUnlitShader = std::make_shared<Shader>(Path("mod7.vert"), Path("mod7.frag"));
     //_basicUnlitShader = std::make_shared<Shader>(Path("texture.vert"), Path("texture.frag"));
 }
 void Watch::createSide() {

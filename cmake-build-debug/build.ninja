@@ -168,6 +168,13 @@ build CS330M/CMakeFiles/CS330M.dir/src/Model_objects/portfolio.cpp.obj: CXX_COMP
   OBJECT_DIR = CS330M\CMakeFiles\CS330M.dir
   OBJECT_FILE_DIR = CS330M\CMakeFiles\CS330M.dir\src\Model_objects
 
+build CS330M/CMakeFiles/CS330M.dir/src/Model_objects/window.cpp.obj: CXX_COMPILER__CS330M_Debug C$:/Users/matt/source/repos/CS330M/CS330M/src/Model_objects/window.cpp || cmake_object_order_depends_target_CS330M
+  DEP_FILE = CS330M\CMakeFiles\CS330M.dir\src\Model_objects\window.cpp.obj.d
+  FLAGS = -g -std=gnu++20
+  INCLUDES = -IC:/Users/matt/source/repos/CS330M/CS330M/include -IC:/Users/matt/source/repos/CS330M/CS330M/external/shared/glad/include -IC:/Users/matt/source/repos/CS330M/CS330M/glfw -IC:/Users/matt/source/repos/CS330M/CS330M/glm -IC:/Users/matt/source/repos/CS330M/CS330M/stb -IC:/Users/matt/source/repos/CS330M/CS330M/external/cmakelibs/glfw/include -IC:/Users/matt/source/repos/CS330M/CS330M/external/shared/glm -IC:/Users/matt/source/repos/CS330M/CS330M/external/shared/stb_image/$$ -IC:/Users/matt/source/repos/CS330M/CS330M/external/shared/stb_image/stb
+  OBJECT_DIR = CS330M\CMakeFiles\CS330M.dir
+  OBJECT_FILE_DIR = CS330M\CMakeFiles\CS330M.dir\src\Model_objects
+
 build CS330M/CMakeFiles/CS330M.dir/src/Texture.cpp.obj: CXX_COMPILER__CS330M_Debug C$:/Users/matt/source/repos/CS330M/CS330M/src/Texture.cpp || cmake_object_order_depends_target_CS330M
   DEP_FILE = CS330M\CMakeFiles\CS330M.dir\src\Texture.cpp.obj.d
   FLAGS = -g -std=gnu++20
@@ -239,7 +246,7 @@ build CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj: CXX_CO
 #############################################
 # Link the executable ..\Run-Me\Windows\CS330M.exe
 
-build ../Run-Me/Windows/CS330M.exe: CXX_EXECUTABLE_LINKER__CS330M_Debug CS330M/CMakeFiles/CS330M.dir/src/Camera.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Coffee.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Light.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Watch.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/pen.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/plane.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/portfolio.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Texture.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/application.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/main.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/material.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/mesh.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/model.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/shader.cpp.obj CS330M/CMakeFiles/CS330M.dir/external/shared/glad/src/glad.c.obj CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj | CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a || CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a
+build ../Run-Me/Windows/CS330M.exe: CXX_EXECUTABLE_LINKER__CS330M_Debug CS330M/CMakeFiles/CS330M.dir/src/Camera.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Coffee.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Light.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/Watch.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/pen.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/plane.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/portfolio.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Model_objects/window.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/Texture.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/application.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/main.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/material.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/mesh.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/model.cpp.obj CS330M/CMakeFiles/CS330M.dir/src/shader.cpp.obj CS330M/CMakeFiles/CS330M.dir/external/shared/glad/src/glad.c.obj CS330M/CMakeFiles/CS330M.dir/external/shared/stb_image/stb.cpp.obj | CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a || CS330M/external/cmakelibs/glfw/src/libglfw3.a CS330M/external/shared/stb_image/libstb.a
   FLAGS = -g
   LINK_FLAGS = -static-libgcc -static-libstdc++ -static
   LINK_LIBRARIES = CS330M/external/cmakelibs/glfw/src/libglfw3.a  -lopengl32  CS330M/external/shared/stb_image/libstb.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32

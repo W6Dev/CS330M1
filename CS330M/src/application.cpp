@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Model_objects/Light.h>
 #include <Model_objects/portfolio.h>
+#include <Model_objects/window.h>
 #include <Model_objects/plane.h>
 #include <Model_objects/pen.h>
 #include <Model_objects/Coffee.h>
@@ -212,11 +213,10 @@ void Application::setupScene() {
     _objects.emplace_back(coffeeCup.release());
 
    _objects.emplace_back(std::make_unique<Pen>());
-   // auto &moveLight = _objects.emplace_back(std::make_unique<Light>());
-    //moveLight->Transform = glm::translate(moveLight->Transform, glm::vec3(0.0f, 7.0f, -5.0f));
    _objects.emplace_back(std::make_unique<Portfolio>());
    _objects.emplace_back(std::make_unique<Plane>());
    _objects.emplace_back(std::make_unique<Watch>());
+   _objects.emplace_back(std::make_unique<Window>());
 }
 
 void Application::update(float deltaTime) {
